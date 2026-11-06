@@ -1,0 +1,7 @@
+---
+import type {Locale} from '../../i18n/routes';
+import {t} from '../../i18n/content';
+interface Props {locale:Locale}
+const {locale}=Astro.props;const c=t(locale);
+---
+<section class="section process"><div class="container"><span class="eyebrow">{c.process.eyebrow}</span><h2>{c.process.title}</h2><div class="process__steps">{c.process.steps.map((step,i)=><div class="process__step"><span>{i+1}</span><h3>{step.title}</h3><p>{step.description}</p></div>)}</div></div></section>

@@ -1,0 +1,21 @@
+---
+import type {Locale} from '../../i18n/routes';
+import {pathFor} from '../../i18n/routes';
+import {t} from '../../i18n/content';
+import Icon from '../ui/Icon.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+interface Props {locale:Locale}
+const {locale}=Astro.props;
+const c=t(locale);
+const icons=['heart','home','leaf'] as const;
+---
+<section class="section service-cards" aria-labelledby="service-cards-title">
+  <div class="container">
+    <div class="section-headline"><div><span class="eyebrow">{c.services.eyebrow}</span><h2 id="service-cards-title">{c.services.title}</h2></div><a class="text-link" href={pathFor(locale,'services')}>{c.action.allServices}<Icon name="arrow" size={17}/></a></div>
+    <div class="service-cards__grid">
+      {c.services.items.map((service,index)=><a href={`${pathFor(locale,'services')}#service-${index+1}`} class:list={['service-card',`service-card--${index+1}`]}>
+        <Icon name={icons[index] ?? 'heart'} size={46}/><h3>{service.title}</h3><span class="service-card__arrow"><Icon name="arrow" size={19}/></span>
+      </a>)}
+    </div>
+  </div>
+</section>

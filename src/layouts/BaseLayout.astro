@@ -1,0 +1,49 @@
+---
+import type {Locale,PageKey} from '../i18n/routes';
+import {pathFor} from '../i18n/routes';
+import {t} from '../i18n/content';
+import Navbar from '../components/layout/Navbar.astro';
+import Footer from '../components/layout/Footer.astro';
+import '../styles/main.scss';
+interface Props {locale:Locale;page:PageKey}
+const {locale,page}=Astro.props;
+const copy=t(locale);
+const site=Astro.site ?? new URL('https://kheralia.com');
+const canonical=new URL(pathFor(locale,page),site).href;
+const links=(['es','en'] as const).map((lang)=>({lang,url:new URL(pathFor(lang,page),site).href}));
+const ready=import.meta.env.PUBLIC_SITE_READY==='true';
+const jsonld={
+  '@context':'https://schema.org',
+  '@type':'Organization',
+  name:'Kheralia Mind & Well',
+  url:new URL(pathFor(locale,'home'),site).href,
+  description:copy.meta.home.description,
+};
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#F7F2EA"/>
+    <title>{`${copy.meta[page].title} | Kheralia Mind & Well`}</title>
+    <meta name="description" content={copy.meta[page].description}/>
+    <meta name="robots" content={ready?'index,follow':'noindex,nofollow'}/>
+    <link rel="canonical" href={canonical}/>
+    {links.map(({lang,url})=><link rel="alternate" hreflang={lang} href={url}/>)}
+    <link rel="alternate" hreflang="x-default" href={new URL(pathFor('es',page),site).href}/>
+    <meta property="og:type" content="website"/><meta property="og:site_name" content="Kheralia Mind & Well"/>
+    <meta property="og:title" content={`${copy.meta[page].title} | Kheralia`}/>
+    <meta property="og:description" content={copy.meta[page].description}/>
+    <meta property="og:url" content={canonical}/>
+    <meta property="og:locale" content={locale==='es'?'es_ES':'en_GB'}/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonld).replace(/</g,'\\u003c')}/>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">{locale==='es'?'Saltar al contenido':'Skip to content'}</a>
+    <Navbar {locale} {page}/>
+    <main id="main-content"><slot/></main>
+    <Footer {locale}/>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+---
+import type {Locale} from '../../i18n/routes';
+import {pathFor} from '../../i18n/routes';
+import {t} from '../../i18n/content';
+import Button from '../ui/Button.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Icon from '../ui/Icon.astro';
+interface Props {locale:Locale;compact?:boolean}
+const {locale,compact=false}=Astro.props;
+const c=t(locale);
+---
+<section class:list={['philosophy','section',{'philosophy--compact':compact}]}>
+  <div class="container philosophy__grid">
+    <div class="philosophy__copy">
+      <SectionHeading eyebrow={c.philosophy.eyebrow} title={c.philosophy.title}/>
+      <p>{c.philosophy.description}</p>
+      <Button variant="outline" href={pathFor(locale,'about')}>{c.action.discover}</Button>
+    </div>
+    <figure class="philosophy__image"><img src="/images/interior.webp" alt={locale==='es'?'Interior cálido con plantas (imagen provisional)':'Warm interior with plants (placeholder)'} loading="lazy" width="680" height="420"/></figure>
+  </div>
+</section>

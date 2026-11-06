@@ -1,0 +1,35 @@
+---
+import type {Locale,PageKey} from '../../i18n/routes';
+import {pathFor} from '../../i18n/routes';
+import {t} from '../../i18n/content';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+interface Props {locale:Locale;page:PageKey}
+const {locale,page}=Astro.props;
+const copy=t(locale);
+const other=locale==='es'?'en':'es';
+---
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href={pathFor(locale,'home')} aria-label="Kheralia Mind & Well — home">
+      <img src="/images/logo-icon.png" width="66" height="66" alt=""/>
+      <span class="brand__name">Kheralia<small>MIND & WELL</small></span>
+    </a>
+    <nav class="desktop-nav" aria-label={locale==='es'?'Navegación principal':'Primary navigation'}>
+      {(Object.keys(copy.nav) as PageKey[]).map((key)=><a class:list={[{active:page===key}]} href={pathFor(locale,key)} aria-current={page===key?'page':undefined}>{copy.nav[key]}</a>)}
+    </nav>
+    <div class="site-header__right">
+      <div class="language-switch" aria-label={locale==='es'?'Seleccionar idioma':'Choose language'}>
+        <a href={pathFor('es',page)} lang="es" aria-current={locale==='es'?'true':undefined}>ES</a><span aria-hidden="true">|</span><a href={pathFor('en',page)} lang="en" aria-current={locale==='en'?'true':undefined}>EN</a>
+      </div>
+      <Button class="site-header__cta" href={pathFor(locale,'contact')}>{copy.action.contact}</Button>
+    </div>
+    <details class="mobile-nav">
+      <summary aria-label={locale==='es'?'Abrir menú de navegación':'Open navigation menu'}><Icon name="menu" size={28}/></summary>
+      <nav aria-label={locale==='es'?'Navegación móvil':'Mobile navigation'}>
+        {(Object.keys(copy.nav) as PageKey[]).map((key)=><a href={pathFor(locale,key)} aria-current={page===key?'page':undefined}>{copy.nav[key]}</a>)}
+        <div class="mobile-nav__languages"><a href={pathFor('es',page)}>ES</a><a href={pathFor('en',page)}>EN</a></div>
+      </nav>
+    </details>
+  </div>
+</header>

@@ -1,0 +1,18 @@
+---
+import type {Locale} from '../../i18n/routes';
+import {t} from '../../i18n/content';
+import Icon from '../ui/Icon.astro';
+interface Props {locale:Locale}
+const {locale}=Astro.props;
+const services=t(locale).services.items;
+const photos=['/images/people.webp','/images/home.webp','/images/wellness.webp'];
+const iconNames=['people','home','leaf'] as const;
+---
+<div class="service-features">
+  {services.map((service,index)=><section id={`service-${index+1}`} class:list={['service-feature',{'service-feature--alternate':index%2===1}]}>
+    <div class="container service-feature__grid">
+      <div class="service-feature__visual"><img src={photos[index]} alt={locale==='es'?'Imagen de referencia provisional para el servicio':'Temporary reference image for service'} loading="lazy" width="640" height="420"/></div>
+      <div class="service-feature__copy"><span class="eyebrow">{String(index+1).padStart(2,'0')} —</span><h2>{service.title}</h2><p>{service.description}</p><div class="service-feature__benefits">{service.features.map((feature)=><div><Icon name={iconNames[index]??'heart'} size={25}/><span>{feature}</span></div>)}</div></div>
+    </div>
+  </section>)}
+</div>

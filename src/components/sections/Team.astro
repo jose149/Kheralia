@@ -1,0 +1,11 @@
+---
+import type {Locale} from '../../i18n/routes';
+import {t} from '../../i18n/content';
+import Icon from '../ui/Icon.astro';
+interface Props {locale:Locale}
+const {locale}=Astro.props;const c=t(locale);
+---
+<section class="section team-section"><div class="container team-section__grid">
+  <div><span class="eyebrow">{c.about.eyebrow}</span><h2>{c.about.teamTitle}</h2><p>{c.about.teamDescription}</p></div>
+  {[1,2].map((n)=><div class="team-card"><div class="team-card__portrait"><Icon name="people" size={64}/></div><span class="eyebrow">{locale==='es'?'EQUIPO KHERALIA':'KHERALIA TEAM'}</span><h3>{locale==='es'?`Profesional ${n}`:`Team member ${n}`}</h3><p>{locale==='es'?'Fotografía y biografía pendientes de aprobación.':'Photograph and profile awaiting approval.'}</p></div>)}
+</div></section>

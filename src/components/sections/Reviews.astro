@@ -1,0 +1,17 @@
+---
+import type {Locale} from '../../i18n/routes';
+import {t} from '../../i18n/content';
+import Icon from '../ui/Icon.astro';
+interface Props {locale:Locale}
+const {locale}=Astro.props;
+const c=t(locale);
+---
+<section class="section reviews" aria-labelledby="reviews-title">
+  <div class="container">
+    <span class="eyebrow">{c.reviews.eyebrow}</span>
+    <h2 id="reviews-title">{c.reviews.title}</h2>
+    <div class="reviews__grid">
+      {[1,2,3].map((number)=><div class="reviews__placeholder" aria-label={`${locale==='es'?'Testimonio pendiente':'Testimonial pending'} ${number}`}><Icon name="message" size={31}/><p>{c.reviews.pending}</p><span class="reviews__skeleton" aria-hidden="true"></span></div>)}
+    </div>
+  </div>
+</section>

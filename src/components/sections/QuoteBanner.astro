@@ -1,0 +1,7 @@
+---
+import type {Locale} from '../../i18n/routes';
+import {t} from '../../i18n/content';
+interface Props {locale:Locale}
+const {locale}=Astro.props;
+---
+<section class="quote-banner"><div class="container"><p>“{t(locale).quote}”</p><span class="quote-banner__rule" aria-hidden="true"></span></div></section>

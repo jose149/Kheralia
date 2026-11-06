@@ -1,0 +1,25 @@
+---
+import type {Locale,PageKey} from '../../i18n/routes';
+import {pathFor} from '../../i18n/routes';
+import {t} from '../../i18n/content';
+import Button from '../ui/Button.astro';
+interface Props {locale:Locale;page:PageKey}
+const {locale,page}=Astro.props;
+const c=t(locale);
+---
+<section class:list={['hero',`hero--${page}`]}>
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <span class="eyebrow">{c.hero[page].eyebrow}</span>
+      <h1>{c.hero[page].title}</h1>
+      <p>{c.hero[page].description}</p>
+      <div class="button-group">
+        <Button href={pathFor(locale,'contact')}>{page==='contact'?c.action.send:c.action.contact}</Button>
+        <Button variant="outline" href={pathFor(locale,page==='contact'?'services':'services')}>{page==='contact'?c.action.services:page==='home'?c.action.services:c.action.learn}</Button>
+      </div>
+    </div>
+    <div class="hero__visual">
+      <img src="/images/hero-care.webp" alt={locale==='es'?'Persona mayor y cuidadora conversando con una sonrisa (imagen provisional)':'Older person and caregiver sharing a moment (placeholder image)'} width="790" height="560" fetchpriority={page==='home'?'high':'auto'} decoding="async"/>
+    </div>
+  </div>
+</section>

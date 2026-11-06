@@ -1,0 +1,23 @@
+---
+interface Props { name: 'home' | 'heart' | 'leaf' | 'people' | 'shield' | 'arrow' | 'phone' | 'mail' | 'pin' | 'clock' | 'menu' | 'check' | 'sparkles' | 'message' | 'sun' | 'utensils' | 'activity'; size?: number; }
+const { name, size = 26 } = Astro.props;
+---
+<svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  {name === 'home' && <><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V10Z"/><path d="M9 21v-8h6v8"/></>}
+  {name === 'heart' && <path d="M20.8 4.6a5.3 5.3 0 0 0-7.5 0L12 5.9l-1.3-1.3a5.3 5.3 0 0 0-7.5 7.5L12 21l8.8-8.9a5.3 5.3 0 0 0 0-7.5Z"/>}
+  {name === 'leaf' && <><path d="M12 22c-1-6-7-8-7-13 0-3 4-6 7-8 4 5 7 8 7 12 0 5-4 8-7 9Z"/><path d="M12 22c0-8 1-12 4-16"/><path d="M12 20C7 19 4 17 2 14M12 20c5-1 8-4 10-7"/></>}
+  {name === 'people' && <><circle cx="8" cy="7" r="3"/><path d="M2 21v-3a6 6 0 0 1 12 0v3"/><circle cx="17.5" cy="8" r="2.5"/><path d="M17 15a5 5 0 0 1 5 5v1"/></>}
+  {name === 'shield' && <><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></>}
+  {name === 'arrow' && <><path d="M4 12h16"/><path d="m14 6 6 6-6 6"/></>}
+  {name === 'phone' && <path d="M22 16.9V20a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3.1a2 2 0 0 1 2 1.7l.5 3a2 2 0 0 1-.6 1.8L7.1 10a16 16 0 0 0 6.9 6.9l1.5-1.9a2 2 0 0 1 1.8-.6l3 .5a2 2 0 0 1 1.7 2Z"/>}
+  {name === 'mail' && <><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 8 10-8"/></>}
+  {name === 'pin' && <><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></>}
+  {name === 'clock' && <><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></>}
+  {name === 'menu' && <><path d="M4 7h16M4 12h16M4 17h16"/></>}
+  {name === 'check' && <path d="m4 12 5 5L20 6"/>}
+  {name === 'sparkles' && <><path d="m12 2 1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2Z"/><path d="m19 17 .7 2.3L22 20l-2.3.7L19 23l-.7-2.3L16 20l2.3-.7L19 17Z"/></>}
+  {name === 'message' && <path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 9 9 0 0 1-4-.9L3 21l1.9-5.5a9 9 0 1 1 16.1-4Z"/>}
+  {name === 'sun' && <><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.5 1.5m11.2 11.2 1.5 1.5M4.9 19.1l1.5-1.5M17.6 6.4l1.5-1.5"/></>}
+  {name === 'utensils' && <><path d="M4 2v9m4-9v9M2 2v6a4 4 0 0 0 8 0V2M6 11v11M17 2v20M17 2c-3 3-4 7-4 11h4"/></>}
+  {name === 'activity' && <><path d="M3 12h4l3-7 4 14 3-7h4"/></>}
+</svg>

@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageContent from '../../components/sections/PageContent.astro';
+import {staticPages} from '../../i18n/routes';
+import type {Locale,PageKey} from '../../i18n/routes';
+export function getStaticPaths(){return staticPages();}
+const lang=Astro.params.lang as Locale;
+const page=Astro.props.page as PageKey;
+const status=Astro.url.searchParams.get('status')??undefined;
+---
+<BaseLayout locale={lang} {page}><PageContent locale={lang} {page} {status}/></BaseLayout>
