@@ -1,0 +1,277 @@
+---
+import type { Locale, PageKey } from "../../i18n/routes";
+import { pathFor } from "../../i18n/routes";
+import { t } from "../../i18n/content";
+import { homeHeroClassic } from "../../i18n/homeHeroClassic";
+import OriginalHero from "./Hero.astro";
+import Icon from "../ui/Icon.astro";
+import Button from "../ui/Button.astro";
+
+interface Props {
+  locale: Locale;
+  page: PageKey;
+}
+const { locale, page } = Astro.props;
+const data = homeHeroClassic[locale];
+const actions = t(locale).action;
+---
+
+{
+  page === "home" ? (
+    <section
+      class="hero-classic"
+      aria-label={
+        locale === "es" ? "Presentación de Kheralia" : "Introducing Kheralia"
+      }
+    >
+      <div class="container hero-classic__layout">
+        <div class="hero-classic__photo">
+          <img
+            src="/images/hero-care.webp"
+            width="900"
+            height="600"
+            alt={data.imageAlt}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </div>
+
+        <div class="hero-classic__copy">
+          <h1>{data.title}</h1>
+          <p>{data.description}</p>
+          <div class="hero-classic__actions">
+            <Button href={pathFor(locale, "contact")}>{actions.contact}</Button>
+            <Button href={pathFor(locale, "services")} variant="outline">
+              {actions.services}
+            </Button>
+          </div>
+        </div>
+
+        <ul
+          class="hero-classic__values"
+          aria-label={locale === "es" ? "Nuestros valores" : "Our values"}
+        >
+          {data.values.map((item) => (
+            <li>
+              <Icon name={item.icon} size={32} />
+              <span>
+                {item.title}
+                <br />
+                {item.subtitle}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ) : (
+    <OriginalHero {locale} {page} />
+  )
+}
+
+<style>
+  .hero-classic {
+    position: relative;
+    background: var(--cream, #f7f2ea);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero-classic__layout {
+    position: relative;
+    min-height: 515px;
+    padding-top: clamp(1.35rem, 2.6vw, 2.6rem);
+    padding-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .hero-classic__photo {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    right: calc((100vw - 100%) / -2);
+    width: 61vw;
+    overflow: hidden;
+  }
+  .hero-classic__photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      var(--cream, #f7f2ea) 0%,
+      rgba(247, 242, 234, 0.96) 8%,
+      rgba(247, 242, 234, 0.72) 17%,
+      rgba(247, 242, 234, 0.1) 34%,
+      transparent 51%
+    );
+  }
+  .hero-classic__photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
+  .hero-classic__copy {
+    position: relative;
+    z-index: 1;
+    max-width: 565px;
+  }
+  .hero-classic__copy h1 {
+    font-size: clamp(3.25rem, 5.45vw, 4.2rem);
+    line-height: 1.06;
+    font-weight: 400;
+    letter-spacing: -0.035em;
+    white-space: pre-line;
+  }
+  .hero-classic__copy p {
+    max-width: 485px;
+    margin-top: 1.05rem;
+    color: var(--ink, #465761);
+    font-size: clamp(0.99rem, 1.2vw, 1.12rem);
+    line-height: 1.58;
+  }
+  .hero-classic__actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 1.15rem;
+  }
+  .hero-classic__values {
+    position: relative;
+    z-index: 1;
+    list-style: none;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.65rem;
+    max-width: 610px;
+    padding: 0;
+    margin: 1rem 0 0;
+  }
+  .hero-classic__values li {
+    width: 170px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    color: var(--navy, #153752);
+    text-align: center;
+  }
+  .hero-classic__values :global(svg) {
+    color: var(--gold, #b49b75);
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+  }
+  .hero-classic__values span {
+    font-size: 0.79rem;
+    font-weight: 550;
+    line-height: 1.34;
+  }
+
+  /* PageContent.astro todavía renderiza <Values/>; evitar repetir la sección. */
+  :global(.hero-classic + .values) {
+    display: none;
+  }
+
+  @media (max-width: 1100px) {
+    .hero-classic__photo {
+      width: 59vw;
+    }
+    .hero-classic__copy {
+      max-width: 490px;
+    }
+    .hero-classic__copy h1 {
+      font-size: clamp(3.1rem, 5.2vw, 4.5rem);
+    }
+    .hero-classic__values {
+      gap: 1rem;
+    }
+    .hero-classic__values li {
+      width: 135px;
+    }
+  }
+  @media (max-width: 820px) {
+    .hero-classic__layout {
+      min-height: 0;
+      padding-top: 2rem;
+      padding-bottom: 2.3rem;
+    }
+    .hero-classic__copy {
+      order: 1;
+      max-width: 670px;
+    }
+    .hero-classic__copy h1 {
+      font-size: clamp(3.15rem, 8vw, 4.5rem);
+    }
+    .hero-classic__photo {
+      order: 2;
+      position: relative;
+      z-index: 0;
+      width: calc(100% + 2.5rem);
+      right: auto;
+      top: auto;
+      bottom: auto;
+      height: clamp(250px, 48vw, 375px);
+      margin: 1.6rem -1.25rem 0;
+      border-radius: 22% 0 18% 8% / 34% 0 25% 10%;
+    }
+    .hero-classic__photo::after {
+      background: linear-gradient(
+        90deg,
+        rgba(247, 242, 234, 0.24),
+        transparent 26%
+      );
+    }
+    .hero-classic__values {
+      order: 3;
+      margin-top: 1.7rem;
+      width: 100%;
+      max-width: none;
+      justify-content: space-around;
+      gap: 0.5rem;
+    }
+    .hero-classic__values li {
+      width: 32%;
+    }
+  }
+  @media (max-width: 610px) {
+    .hero-classic__layout {
+      padding-top: 1.55rem;
+    }
+    .hero-classic__copy h1 {
+      font-size: clamp(2.8rem, 9.4vw, 4rem);
+    }
+    .hero-classic__copy p {
+      font-size: 0.96rem;
+    }
+    .hero-classic__actions {
+      gap: 0.6rem;
+    }
+    .hero-classic__photo {
+      width: calc(100% + 2.1rem);
+      margin-inline: -1.05rem;
+      height: 270px;
+    }
+    .hero-classic__values {
+      align-items: flex-start;
+    }
+    .hero-classic__values li {
+      gap: 0.4rem;
+    }
+    .hero-classic__values :global(svg) {
+      width: 29px;
+      height: 29px;
+    }
+    .hero-classic__values span {
+      font-size: 0.66rem;
+    }
+  }
+</style>

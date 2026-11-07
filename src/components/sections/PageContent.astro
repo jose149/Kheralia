@@ -1,44 +1,128 @@
 ---
-import type {Locale,PageKey} from '../../i18n/routes';
-import {t} from '../../i18n/content';
-import {pathFor} from '../../i18n/routes';
-import Button from '../ui/Button.astro';
-import Hero from './Hero.astro';
-import Values from './Values.astro';
-import Philosophy from './Philosophy.astro';
-import ServiceCards from './ServiceCards.astro';
-import Reviews from './Reviews.astro';
-import QuoteBanner from './QuoteBanner.astro';
-import ContactTeaser from './ContactTeaser.astro';
-import ServiceFeatures from './ServiceFeatures.astro';
-import Team from './Team.astro';
-import ContactForm from './ContactForm.astro';
-import Process from './Process.astro';
-interface Props {locale:Locale;page:PageKey;status?:string}
-const {locale,page,status}=Astro.props;const c=t(locale);
+import type { Locale, PageKey } from "../../i18n/routes";
+import { t } from "../../i18n/content";
+import { pathFor } from "../../i18n/routes";
+import Button from "../ui/Button.astro";
+import Hero from "./HeroWithValues.astro";
+import Values from "./Values.astro";
+import Philosophy from "./Philosophy.astro";
+import ServiceCards from "./ServiceCards.astro";
+import Reviews from "./Reviews.astro";
+import QuoteBanner from "./QuoteBanner.astro";
+import ContactTeaser from "./ContactTeaser.astro";
+import ServiceFeatures from "./ServiceFeatures.astro";
+import Team from "./Team.astro";
+import ContactForm from "./ContactForm.astro";
+interface Props {
+  locale: Locale;
+  page: PageKey;
+  status?: string;
+}
+const { locale, page, status } = Astro.props;
+const c = t(locale);
 ---
-<Hero {locale} {page}/>
-{page==='home'&&<>
-  <Values {locale}/>
-  <Philosophy {locale}/>
-  <ServiceCards {locale}/>
-  <Reviews {locale}/>
-  <QuoteBanner {locale}/>
-  <ContactTeaser {locale}/>
-</>}
-{page==='services'&&<>
-  <ServiceFeatures {locale}/>
-  <QuoteBanner {locale}/>
-  <ContactTeaser {locale}/>
-</>}
-{page==='about'&&<>
-  <section class="section values-principles"><div class="container"><div class="section-headline"><div><span class="eyebrow">{c.philosophy.eyebrow}</span><h2>{c.philosophy.title}</h2></div><p>{c.philosophy.description}</p></div><div class="values-principles__grid">{c.philosophy.principles.map((item)=><div class="value"><span class="value__icon">✧</span><h3>{item.title}</h3><p>{item.description}</p></div>)}</div></div></section>
-  <Team {locale}/>
-  <section class="section story"><div class="container story__grid"><img src="/images/interior.webp" width="650" height="470" loading="lazy" alt={locale==='es'?'Interior cálido de un hogar':'Warm home interior'}/><div><span class="eyebrow">{locale==='es'?'NUESTRA HISTORIA':'OUR STORY'}</span><h2>{c.about.storyTitle}</h2><p>{c.about.story}</p><Button href={pathFor(locale,'contact')}>{c.action.contact}</Button></div></div></section>
-  <QuoteBanner {locale}/><ContactTeaser {locale}/>
-</>}
-{page==='contact'&&<>
-  <ContactForm {locale} {status}/>
-  <div class="container contact-promises">{c.contact.promise.map((item)=><div><h3>{item.title}</h3><p>{item.subtitle}</p></div>)}</div>
-  <QuoteBanner {locale}/>
-</>}
+
+<Hero {locale} {page} />
+{
+  page === "home" && (
+    <>
+      <Values {locale} />
+      <ServiceCards {locale} />
+      <Philosophy {locale} />
+      <Reviews {locale} />
+      <QuoteBanner {locale} />
+      <ContactTeaser {locale} />
+    </>
+  )
+}
+{
+  page === "services" && (
+    <>
+      <ServiceFeatures {locale} />
+      <QuoteBanner {locale} />
+      <ContactTeaser {locale} />
+    </>
+  )
+}
+{
+  page === "about" && (
+    <>
+      <section class="section values-principles">
+        <div class="container">
+          <>
+            <div class="section-headline">
+              <>
+                <div>
+                  <>
+                    <span class="eyebrow">{c.philosophy.eyebrow}</span>
+                    <h2>{c.philosophy.title}</h2>
+                  </>
+                </div>
+                <p>{c.philosophy.description}</p>
+              </>
+            </div>
+            <div class="values-principles__grid">
+              {c.philosophy.principles.map((item) => (
+                <div class="value">
+                  <span class="value__icon">✧</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </>
+        </div>
+      </section>
+      <Team {locale} />
+      <section class="section story">
+        <div class="container story__grid">
+          <>
+            <img
+              src="/images/interior.webp"
+              width="650"
+              height="470"
+              loading="lazy"
+              alt={
+                locale === "es"
+                  ? "Interior cálido de un hogar"
+                  : "Warm home interior"
+              }
+            />
+            <div>
+              <>
+                <span class="eyebrow">
+                  {locale === "es" ? "NUESTRA HISTORIA" : "OUR STORY"}
+                </span>
+                <h2>{c.about.storyTitle}</h2>
+                <p>{c.about.story}</p>
+                <Button href={pathFor(locale, "contact")}>
+                  {c.action.contact}
+                </Button>
+              </>
+            </div>
+          </>
+        </div>
+      </section>
+      <>
+        <QuoteBanner {locale} />
+        <ContactTeaser {locale} />
+      </>
+    </>
+  )
+}
+{
+  page === "contact" && (
+    <>
+      <ContactForm {locale} {status} />
+      <div class="container contact-promises">
+        {c.contact.promise.map((item) => (
+          <div>
+            <h3>{item.title}</h3>
+            <p>{item.subtitle}</p>
+          </div>
+        ))}
+      </div>
+      <QuoteBanner {locale} />
+    </>
+  )
+}

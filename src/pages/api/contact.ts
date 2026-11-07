@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
-const RATE_SAFE_MAX_BYTES = 12_000;
+const MAX_BYTES = 12_000;
 const redirect = (request: Request, locale: 'es' | 'en', status: string): Response => {
   const pathname = locale === 'es' ? '/es/contacto/' : '/en/contact/';
   return Response.redirect(new URL(`${pathname}?status=${status}#contact-form`, request.url), 303);
@@ -14,7 +14,7 @@ function single(fields: URLSearchParams, key: string): string {
 
 export const POST: APIRoute = async ({ request }) => {
   const length = Number(request.headers.get('content-length') ?? 0);
-  if (Number.isFinite(length) && length > RATE_SAFE_MAX_BYTES) {
+  if (Number.isFinite(length) && length > MAX_BYTES) {
     return new Response('Payload too large', { status: 413 });
   }
   const origin = request.headers.get('origin');
@@ -26,25 +26,30 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const body = await request.text();
-  if (body.length > RATE_SAFE_MAX_BYTES) return new Response('Payload too large', {status:413});
+  if (body.length > MAX_BYTES) return new Response('Payload too large', { status: 413 });
   const fields = new URLSearchParams(body);
   const locale = single(fields, 'locale') === 'en' ? 'en' : 'es';
 
-  // Make honeypot submissions indistinguishable from successes.
-  if (single(fields, 'company')) return redirect(request, locale, 'sent');
+  // Honeypot: invisible spam submissions receive a success redirect.
+  if (single(fields, 'website')) return redirect(request, locale, 'sent');
 
+  const organization = single(fields, 'organization');
   const name = single(fields, 'name');
   const phone = single(fields, 'phone');
   const email = single(fields, 'email');
   const message = single(fields, 'message');
   const consent = single(fields, 'consent');
   const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  if (!(name.length >= 2 && name.length <= 100 && phone.length >= 6 && phone.length <= 30 &&
-    email.length <= 180 && validEmail && message.length >= 10 && message.length <= 1800 && consent === 'yes')) {
+
+  if (!(organization.length >= 2 && organization.length <= 140 &&
+    name.length >= 2 && name.length <= 100 &&
+    phone.length >= 6 && phone.length <= 30 &&
+    email.length <= 180 && validEmail &&
+    message.length >= 10 && message.length <= 1800 && consent === 'yes')) {
     return redirect(request, locale, 'error');
   }
 
-  // Launch gate: never process real enquiries while the legal/contact setup is provisional.
+  // Leave disabled until the privacy information and sender setup are approved.
   if (import.meta.env.PUBLIC_SITE_READY !== 'true') return redirect(request, locale, 'unavailable');
 
   const apiKey = import.meta.env.RESEND_API_KEY;
@@ -55,13 +60,13 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const result = await fetch('https://api.resend.com/emails', {
       method: 'POST',
-      headers: {Authorization:`Bearer ${apiKey}`, 'Content-Type':'application/json'},
+      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         from,
         to: [to],
         reply_to: email,
-        subject: `Kheralia - consulta desde web (${locale})`,
-        text: `Nombre: ${name}\nTeléfono: ${phone}\nEmail: ${email}\nIdioma: ${locale}\n\nMensaje:\n${message}`,
+        subject: `Kheralia - propuesta de colaboración (${locale})`,
+        text: `Centro/organización: ${organization}\nNombre: ${name}\nTeléfono: ${phone}\nEmail: ${email}\nIdioma: ${locale}\n\nConsulta:\n${message}`,
       }),
       signal: AbortSignal.timeout(8000),
     });

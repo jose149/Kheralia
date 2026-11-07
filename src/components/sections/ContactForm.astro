@@ -1,41 +1,104 @@
 ---
-import type {Locale} from '../../i18n/routes';
-import {t} from '../../i18n/content';
+import type { Locale } from '../../i18n/routes';
+import { t } from '../../i18n/content';
 import Icon from '../ui/Icon.astro';
-interface Props {locale:Locale;status?:string}
-const {locale,status}=Astro.props;
-const c=t(locale);const f=c.contact.fields;
+
+interface Props {
+  locale: Locale;
+  status?: string;
+}
+const { locale, status } = Astro.props;
+const c = t(locale);
+const f = c.contact.fields;
+const spanish = locale === 'es';
 ---
 <section class="section contact-section" id="contact-form">
   <div class="container contact-section__grid">
-    <div class="form-card"><span class="eyebrow">{locale==='es'?'ENVÍENOS SU CONSULTA':'SEND AN ENQUIRY'}</span><h2>{locale==='es'?'Cuéntenos cómo\npodemos ayudarle':'Tell us how\nwe can help'}</h2><p>{c.contact.description}</p>
-      {status==='sent'&&<div class="form-status form-status--success" role="status"><Icon name="check" size={18}/>{f.success}</div>}
-      {status==='error'&&<div class="form-status form-status--error" role="alert">{f.error}</div>}
-      {status==='unavailable'&&<div class="form-status form-status--error" role="alert">{f.unavailable}</div>}
+    <div class="form-card">
+      <span class="eyebrow">{spanish ? 'CONTACTO PROFESIONAL' : 'PROFESSIONAL ENQUIRY'}</span>
+      <h2>{spanish ? 'Hablemos de\ncolaborar' : 'Let’s explore\nworking together'}</h2>
+      <p>{c.contact.description}</p>
+
+      {status === 'sent' && <div class="form-status form-status--success" role="status"><Icon name="check" size={18}/>{f.success}</div>}
+      {status === 'error' && <div class="form-status form-status--error" role="alert">{f.error}</div>}
+      {status === 'unavailable' && <div class="form-status form-status--error" role="alert">{f.unavailable}</div>}
       <div data-form-status="sent" class="form-status form-status--success" role="status" hidden>{f.success}</div>
       <div data-form-status="error" class="form-status form-status--error" role="alert" hidden>{f.error}</div>
       <div data-form-status="unavailable" class="form-status form-status--error" role="alert" hidden>{f.unavailable}</div>
+
       <form action="/api/contact" method="POST" class="contact-form">
         <input type="hidden" name="locale" value={locale}/>
-        <div class="honeypot" aria-hidden="true"><label for="company">Company</label><input id="company" name="company" type="text" tabindex="-1" autocomplete="off"/></div>
-        <div class="form-field"><label for="contact-name">{f.name} <span aria-hidden="true">*</span></label><input id="contact-name" name="name" autocomplete="name" minlength="2" maxlength="100" required/></div>
-        <div class="contact-form__row"><div class="form-field"><label for="contact-phone">{f.phone} <span aria-hidden="true">*</span></label><input id="contact-phone" name="phone" type="tel" autocomplete="tel" minlength="6" maxlength="30" required/></div><div class="form-field"><label for="contact-email">{f.email} <span aria-hidden="true">*</span></label><input id="contact-email" name="email" type="email" autocomplete="email" maxlength="180" required/></div></div>
-        <div class="form-field"><label for="contact-message">{f.message} <span aria-hidden="true">*</span></label><textarea id="contact-message" name="message" rows="5" minlength="10" maxlength="1800" required placeholder={locale==='es'?'Cuéntenos qué tipo de ayuda necesita, sin incluir datos médicos sensibles.':'Tell us what kind of support you need, without sharing sensitive medical details.'}></textarea></div>
-        <div class="form-check"><input id="contact-consent" name="consent" type="checkbox" value="yes" required/><label for="contact-consent">{f.consent} <a href={`/${locale}/${locale==='es'?'privacidad':'privacy'}/`}>{locale==='es'?'Leer información de privacidad':'Read privacy information'}</a></label></div>
+        <!-- Honeypot: keep empty. Name must match the API route. -->
+        <div class="honeypot" aria-hidden="true">
+          <label for="contact-website">Website</label>
+          <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off"/>
+        </div>
+
+        <div class="form-field">
+          <label for="contact-organization">{f.organization} <span aria-hidden="true">*</span></label>
+          <input id="contact-organization" name="organization" autocomplete="organization" minlength="2" maxlength="140" required/>
+        </div>
+        <div class="form-field">
+          <label for="contact-name">{f.name} <span aria-hidden="true">*</span></label>
+          <input id="contact-name" name="name" autocomplete="name" minlength="2" maxlength="100" required/>
+        </div>
+        <div class="contact-form__row">
+          <div class="form-field">
+            <label for="contact-phone">{f.phone} <span aria-hidden="true">*</span></label>
+            <input id="contact-phone" name="phone" type="tel" autocomplete="tel" minlength="6" maxlength="30" required/>
+          </div>
+          <div class="form-field">
+            <label for="contact-email">{f.email} <span aria-hidden="true">*</span></label>
+            <input id="contact-email" name="email" type="email" autocomplete="email" maxlength="180" required/>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="contact-message">{f.message} <span aria-hidden="true">*</span></label>
+          <textarea
+            id="contact-message" name="message" rows="5" minlength="10" maxlength="1800" required
+            placeholder={spanish
+              ? 'Cuéntenos qué tipo de colaboración necesita. No incluya datos identificativos de pacientes ni información médica.'
+              : 'Tell us about the partnership or support you need. Please do not include patient-identifiable details or medical information.'}
+          ></textarea>
+        </div>
+        <div class="form-check">
+          <input id="contact-consent" name="consent" type="checkbox" value="yes" required/>
+          <label for="contact-consent">
+            {f.consent}
+            <a href={`/${locale}/${spanish ? 'privacidad' : 'privacy'}/`}>
+              {spanish ? 'Leer información de privacidad' : 'Read privacy information'}
+            </a>
+          </label>
+        </div>
         <button type="submit" class="button button--primary">{f.submit}<Icon name="arrow" size={17}/></button>
       </form>
     </div>
-    <aside class="direct-contact"><span class="eyebrow">{locale==='es'?'CONTACTO DIRECTO':'DIRECT CONTACT'}</span><h2>{c.contact.detailsTitle}</h2>
-      <div class="direct-contact__item"><Icon name="message"/><div><strong>{locale==='es'?'Escríbenos':'Write to us'}</strong><span>{locale==='es'?'Utiliza el formulario para solicitar información.':'Please use the form to send an enquiry.'}</span></div></div>
-      <div class="direct-contact__item"><Icon name="pin"/><div><strong>{c.contact.zoneTitle}</strong><span>{c.contact.zoneDescription}</span></div></div>
-      <div class="contact-location"><Icon name="leaf" size={46}/><h3>{locale==='es'?'Un cuidado que se adapta a ti':'Care that adapts to you'}</h3><p>{locale==='es'?'Juntos encontraremos la manera de acompañarte.':'Together we can explore the care that suits you.'}</p></div>
+    <aside class="direct-contact">
+      <span class="eyebrow">{spanish ? 'CONTACTO DIRECTO' : 'DIRECT CONTACT'}</span>
+      <h2>{c.contact.detailsTitle}</h2>
+      <div class="direct-contact__item">
+        <Icon name="message"/>
+        <div>
+          <strong>{spanish ? 'Escríbenos' : 'Send us an enquiry'}</strong>
+          <span>{spanish ? 'Solicita información sobre servicios y colaboraciones.' : 'Ask about services and potential partnerships.'}</span>
+        </div>
+      </div>
+      <div class="direct-contact__item">
+        <Icon name="pin"/>
+        <div><strong>{c.contact.zoneTitle}</strong><span>{c.contact.zoneDescription}</span></div>
+      </div>
+      <div class="contact-location">
+        <Icon name="leaf" size={46}/>
+        <h3>{spanish ? 'Cada caso requiere su propio plan' : 'A tailored plan for each case'}</h3>
+        <p>{spanish ? 'Valoración, organización y supervisión del apoyo domiciliario.' : 'Assessment, organisation and supervision of support at home.'}</p>
+      </div>
     </aside>
   </div>
 </section>
 
 <script is:inline>
   const status = new URLSearchParams(window.location.search).get('status');
-  if (status && ['sent','error','unavailable'].includes(status)) {
+  if (status && ['sent', 'error', 'unavailable'].includes(status)) {
     document.querySelectorAll('[data-form-status]').forEach((element) => {
       element.hidden = element.getAttribute('data-form-status') !== status;
     });

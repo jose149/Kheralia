@@ -1,35 +1,470 @@
 ---
-import type {Locale,PageKey} from '../../i18n/routes';
-import {pathFor} from '../../i18n/routes';
-import {t} from '../../i18n/content';
-import Button from '../ui/Button.astro';
-import Icon from '../ui/Icon.astro';
-interface Props {locale:Locale;page:PageKey}
-const {locale,page}=Astro.props;
-const copy=t(locale);
-const other=locale==='es'?'en':'es';
+import type { Locale, PageKey } from "../../i18n/routes";
+import { pathFor } from "../../i18n/routes";
+import { t } from "../../i18n/content";
+import Button from "../ui/Button.astro";
+import Icon from "../ui/Icon.astro";
+
+interface Props {
+  locale: Locale;
+  page: PageKey;
+}
+
+const { locale, page } = Astro.props;
+const copy = t(locale);
+const navKeys = Object.keys(copy.nav) as PageKey[];
+const es = locale === "es";
 ---
-<header class="site-header">
+
+<header class="site-header" data-kheralia-header>
   <div class="container site-header__inner">
-    <a class="brand" href={pathFor(locale,'home')} aria-label="Kheralia Mind & Well — home">
-      <img src="/images/logo-icon.png" width="66" height="66" alt=""/>
+    <a
+      class="brand"
+      href={pathFor(locale, "home")}
+      aria-label="Kheralia Mind & Well — Inicio"
+    >
+      <img src="/images/logo-icon.png" width="66" height="66" alt="" />
       <span class="brand__name">Kheralia<small>MIND & WELL</small></span>
     </a>
-    <nav class="desktop-nav" aria-label={locale==='es'?'Navegación principal':'Primary navigation'}>
-      {(Object.keys(copy.nav) as PageKey[]).map((key)=><a class:list={[{active:page===key}]} href={pathFor(locale,key)} aria-current={page===key?'page':undefined}>{copy.nav[key]}</a>)}
+
+    <nav
+      class="desktop-nav"
+      aria-label={es ? "Navegación principal" : "Primary navigation"}
+    >
+      {
+        navKeys.map((key) => (
+          <a
+            class:list={[{ active: page === key }]}
+            href={pathFor(locale, key)}
+            aria-current={page === key ? "page" : undefined}
+          >
+            {copy.nav[key]}
+          </a>
+        ))
+      }
     </nav>
+
     <div class="site-header__right">
-      <div class="language-switch" aria-label={locale==='es'?'Seleccionar idioma':'Choose language'}>
-        <a href={pathFor('es',page)} lang="es" aria-current={locale==='es'?'true':undefined}>ES</a><span aria-hidden="true">|</span><a href={pathFor('en',page)} lang="en" aria-current={locale==='en'?'true':undefined}>EN</a>
+      <div
+        class="language-switch"
+        aria-label={es ? "Seleccionar idioma" : "Choose language"}
+      >
+        <a
+          href={pathFor("es", page)}
+          lang="es"
+          aria-current={es ? "true" : undefined}>ES</a
+        >
+        <span aria-hidden="true">|</span>
+        <a
+          href={pathFor("en", page)}
+          lang="en"
+          aria-current={!es ? "true" : undefined}>EN</a
+        >
       </div>
-      <Button class="site-header__cta" href={pathFor(locale,'contact')}>{copy.action.contact}</Button>
+      <Button class="site-header__cta" href={pathFor(locale, "contact")}>
+        {copy.action.contact}
+      </Button>
     </div>
-    <details class="mobile-nav">
-      <summary aria-label={locale==='es'?'Abrir menú de navegación':'Open navigation menu'}><Icon name="menu" size={28}/></summary>
-      <nav aria-label={locale==='es'?'Navegación móvil':'Mobile navigation'}>
-        {(Object.keys(copy.nav) as PageKey[]).map((key)=><a href={pathFor(locale,key)} aria-current={page===key?'page':undefined}>{copy.nav[key]}</a>)}
-        <div class="mobile-nav__languages"><a href={pathFor('es',page)}>ES</a><a href={pathFor('en',page)}>EN</a></div>
+
+    <div class="mobile-nav" data-mobile-menu>
+      <button
+        class="mobile-nav__toggle"
+        type="button"
+        aria-label={es ? "Abrir menú" : "Open menu"}
+        data-open-label={es ? "Abrir menú" : "Open menu"}
+        data-close-label={es ? "Cerrar menú" : "Close menu"}
+        aria-expanded="false"
+        aria-controls="kheralia-mobile-menu"
+        data-mobile-menu-toggle
+      >
+        <span class="mobile-nav__line"></span>
+        <span class="mobile-nav__line"></span>
+        <span class="mobile-nav__line"></span>
+      </button>
+
+      <nav
+        id="kheralia-mobile-menu"
+        class="mobile-nav__panel"
+        aria-label={es ? "Navegación móvil" : "Mobile navigation"}
+        aria-hidden="true"
+        inert
+        data-mobile-menu-panel
+      >
+        <div class="mobile-nav__content">
+          <span class="mobile-nav__eyebrow"
+            >{es ? "DESCUBRE KHERALIA" : "EXPLORE KHERALIA"}</span
+          >
+
+          <div class="mobile-nav__links">
+            {
+              navKeys.map((key, index) => (
+                <a
+                  class="mobile-nav__item"
+                  style={`--item-index:${index}`}
+                  href={pathFor(locale, key)}
+                  aria-current={page === key ? "page" : undefined}
+                >
+                  <span class="mobile-nav__number">0{index + 1}</span>
+                  <span class="mobile-nav__name">{copy.nav[key]}</span>
+                  <Icon name="arrow" size={25} />
+                </a>
+              ))
+            }
+          </div>
+
+          <div class="mobile-nav__bottom">
+            <span class="mobile-nav__bottom-label"
+              >{es ? "¿HABLAMOS?" : "LET’S TALK"}</span
+            >
+            <a class="mobile-nav__contact" href={pathFor(locale, "contact")}>
+              <span>{copy.action.contact}</span>
+              <Icon name="arrow" size={23} />
+            </a>
+            <div
+              class="mobile-nav__languages"
+              aria-label={es ? "Seleccionar idioma" : "Choose language"}
+            >
+              <span>{es ? "Idioma" : "Language"}</span>
+              <div>
+                <a
+                  href={pathFor("es", page)}
+                  lang="es"
+                  aria-current={es ? "true" : undefined}>ES</a
+                >
+                <span aria-hidden="true">/</span>
+                <a
+                  href={pathFor("en", page)}
+                  lang="en"
+                  aria-current={!es ? "true" : undefined}>EN</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
       </nav>
-    </details>
+    </div>
   </div>
 </header>
+
+<style is:global>
+  /* Sticky también en la versión desktop. */
+  .site-header.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: rgba(247, 242, 234, 0.97);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  html {
+    scroll-padding-top: 6rem;
+  }
+
+  @media (max-width: 820px) {
+    .site-header.site-header {
+      --mobile-header-height: 78px;
+      isolation: isolate;
+      background: rgba(247, 242, 234, 0.98);
+    }
+    .site-header .mobile-nav {
+      display: block;
+      position: static;
+    }
+    .site-header .mobile-nav__toggle {
+      position: relative;
+      display: block;
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      background: transparent;
+      border: 1px solid rgba(21, 55, 82, 0.17);
+      border-radius: 50%;
+      color: var(--navy);
+      z-index: 2;
+      transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.3s ease;
+    }
+    .site-header .mobile-nav__toggle:hover {
+      background: var(--sage-pale);
+      border-color: rgba(21, 55, 82, 0.32);
+    }
+    .site-header .mobile-nav__line {
+      position: absolute;
+      left: 13px;
+      width: 20px;
+      height: 1.6px;
+      border-radius: 5px;
+      background: currentColor;
+      transform-origin: center;
+      transition:
+        transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+        opacity 0.2s ease;
+    }
+    .site-header .mobile-nav__line:nth-child(1) {
+      top: 16px;
+    }
+    .site-header .mobile-nav__line:nth-child(2) {
+      top: 23px;
+    }
+    .site-header .mobile-nav__line:nth-child(3) {
+      top: 30px;
+    }
+    .site-header.is-mobile-menu-open .mobile-nav__line:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .site-header.is-mobile-menu-open .mobile-nav__line:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0.2);
+    }
+    .site-header.is-mobile-menu-open .mobile-nav__line:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* El panel depende del HEADER entero, no del container centrado. */
+    .site-header .mobile-nav .mobile-nav__panel {
+      position: absolute;
+      display: block;
+      inset: 100% 0 auto;
+      width: 100%;
+      min-width: 0;
+      min-height: calc(100vh - var(--mobile-header-height));
+      max-height: calc(100dvh - var(--mobile-header-height));
+      min-height: calc(100dvh - var(--mobile-header-height));
+      padding: 0;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      background:
+        radial-gradient(
+          ellipse at 102% 70%,
+          rgba(146, 167, 151, 0.21) 0 15%,
+          transparent 45%
+        ),
+        radial-gradient(
+          ellipse at -12% 0%,
+          rgba(238, 229, 216, 0.85) 0 12%,
+          transparent 49%
+        ),
+        #f7f2ea;
+      color: var(--navy);
+      box-shadow: 0 20px 36px rgba(21, 55, 82, 0.09);
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-16px);
+      transition:
+        opacity 0.35s ease,
+        visibility 0.35s ease,
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1;
+    }
+    .site-header.is-mobile-menu-open .mobile-nav__panel {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .site-header .mobile-nav__content {
+      width: min(100% - 3rem, 580px);
+      margin: 0 auto;
+      padding: clamp(1.6rem, 5vh, 3rem) 0 3rem;
+    }
+    .site-header .mobile-nav__eyebrow,
+    .site-header .mobile-nav__bottom-label {
+      display: block;
+      font: 600 0.7rem/1.3 var(--body);
+      letter-spacing: 0.17em;
+      color: #92734d;
+    }
+    .site-header .mobile-nav__links {
+      margin-top: 1.1rem;
+    }
+    .site-header .mobile-nav__item {
+      display: grid;
+      grid-template-columns: 2rem 1fr 1.6rem;
+      gap: 0.65rem;
+      align-items: center;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(180, 155, 117, 0.3);
+      opacity: 0;
+      transform: translateY(14px);
+      transition:
+        opacity 0.4s ease,
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        color 0.2s ease;
+      transition-delay: 0ms;
+    }
+    .site-header.is-mobile-menu-open .mobile-nav__item {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: calc(90ms + var(--item-index) * 70ms);
+    }
+    .site-header .mobile-nav__item:hover {
+      color: #5e836e;
+    }
+    .site-header .mobile-nav__item[aria-current="page"] .mobile-nav__name {
+      color: #6c8677;
+    }
+    .site-header .mobile-nav__number {
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+    .site-header .mobile-nav__name {
+      font: 400 clamp(1.8rem, 7vw, 2.5rem)/1.12 var(--heading);
+      letter-spacing: -0.035em;
+    }
+    .site-header .mobile-nav__item svg {
+      width: 20px;
+      opacity: 0.7;
+    }
+    .site-header .mobile-nav__bottom {
+      padding-top: clamp(1.4rem, 5vh, 3rem);
+    }
+    .site-header .mobile-nav__contact {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      width: 100%;
+      margin-top: 0.8rem;
+      padding: 0.9rem 1.3rem;
+      border-radius: 100px;
+      background: var(--navy);
+      color: white;
+      font: 600 0.98rem/1.3 var(--body);
+      transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+    }
+    .site-header .mobile-nav__contact:hover {
+      background: #255778;
+      transform: translateY(-2px);
+    }
+    .site-header .mobile-nav__languages {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(180, 155, 117, 0.28);
+      color: var(--navy);
+      font-size: 0.91rem;
+    }
+    .site-header .mobile-nav__languages > div {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .site-header .mobile-nav__languages a[aria-current="true"] {
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      text-decoration-color: var(--gold);
+    }
+    body.kheralia-mobile-menu-open {
+      overflow: hidden;
+    }
+  }
+
+  @media (max-width: 820px) and (max-height: 650px) {
+    .site-header .mobile-nav__item {
+      padding-block: 0.55rem;
+    }
+    .site-header .mobile-nav__bottom {
+      padding-top: 1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-header .mobile-nav__line,
+    .site-header .mobile-nav__panel,
+    .site-header .mobile-nav__item,
+    .site-header .mobile-nav__contact {
+      transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
+    }
+  }
+</style>
+
+<script>
+  function setupKheraliaMobileMenu() {
+    const header = document.querySelector<HTMLElement>(
+      "[data-kheralia-header]",
+    );
+    if (!header || header.dataset.menuInitialized === "true") return;
+
+    const toggle = header.querySelector<HTMLButtonElement>(
+      "[data-mobile-menu-toggle]",
+    );
+    const panel = header.querySelector<HTMLElement>("[data-mobile-menu-panel]");
+    if (!toggle || !panel) return;
+
+    header.dataset.menuInitialized = "true";
+    const desktop = window.matchMedia("(min-width: 821px)");
+
+    const setOpen = (open: boolean, returnFocus = false) => {
+      header.classList.toggle("is-mobile-menu-open", open);
+      document.body.classList.toggle("kheralia-mobile-menu-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute(
+        "aria-label",
+        toggle.dataset[open ? "closeLabel" : "openLabel"] ?? "Menu",
+      );
+      panel.setAttribute("aria-hidden", String(!open));
+      panel.inert = !open;
+
+      if (open) {
+        panel
+          .querySelector<HTMLAnchorElement>("a")
+          ?.focus({ preventScroll: true });
+      } else if (returnFocus || panel.contains(document.activeElement)) {
+        toggle.focus({ preventScroll: true });
+      }
+    };
+
+    toggle.addEventListener("click", () => {
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
+    });
+
+    panel.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setOpen(false));
+    });
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (toggle.getAttribute("aria-expanded") !== "true") return;
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setOpen(false, true);
+      }
+      if (event.key === "Tab") {
+        const focusables = [
+          toggle,
+          ...Array.from(panel.querySelectorAll<HTMLAnchorElement>("a")),
+        ];
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    desktop.addEventListener("change", (event) => {
+      if (event.matches) setOpen(false);
+    });
+  }
+
+  setupKheraliaMobileMenu();
+  document.addEventListener("astro:page-load", setupKheraliaMobileMenu);
+</script>

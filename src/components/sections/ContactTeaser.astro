@@ -1,18 +1,24 @@
 ---
-import type {Locale} from '../../i18n/routes';
-import {pathFor} from '../../i18n/routes';
-import {t} from '../../i18n/content';
+import type { Locale } from '../../i18n/routes';
+import { pathFor } from '../../i18n/routes';
+import { t } from '../../i18n/content';
 import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
-interface Props {locale:Locale}
-const {locale}=Astro.props;const c=t(locale);
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const c = t(locale);
 ---
 <section class="contact-teaser section">
   <div class="container contact-teaser__grid">
-    <div><span class="eyebrow">{c.contact.eyebrow}</span><h2>{c.contact.title}</h2><p>{c.contact.description}</p><Button href={pathFor(locale,'contact')}>{c.action.contact}</Button></div>
+    <div>
+      <span class="eyebrow">{c.contact.eyebrow}</span>
+      <h2>{c.contact.title}</h2>
+      <p>{c.contact.description}</p>
+      <Button href={pathFor(locale, 'contact')}>{c.action.contact}</Button>
+    </div>
     <div class="contact-teaser__details">
-      <div><Icon name="message"/><span>{locale==='es'?'Un primer contacto, sin compromiso':'Start with a conversation'}</span></div>
-      <div><Icon name="shield"/><span>{locale==='es'?'Trato cercano y discreto':'Personal and discreet support'}</span></div>
+      <div><Icon name="message"/><span>{locale === 'es' ? 'Una primera conversación profesional' : 'An initial professional conversation'}</span></div>
+      <div><Icon name="shield"/><span>{locale === 'es' ? 'Organización y seguimiento del servicio' : 'Organised support and ongoing review'}</span></div>
       <div><Icon name="pin"/><span>Mallorca · Illes Balears</span></div>
     </div>
   </div>
