@@ -295,7 +295,7 @@ p {
 // Hero
 .hero {
   overflow: hidden;
-  padding-block: clamp(2rem, 4vw, 4.5rem) 1rem;
+  padding-block: 0 1rem;
   position: relative;
 }
 .hero__grid {

@@ -1,49 +1,126 @@
 ---
-import type {Locale,PageKey} from '../i18n/routes';
-import {pathFor} from '../i18n/routes';
-import {t} from '../i18n/content';
+import type { Locale, PageKey } from '../i18n/routes';
+import { pathFor } from '../i18n/routes';
+import { t } from '../i18n/content';
+import { seo } from '../seo/metadata';
 import Navbar from '../components/layout/Navbar.astro';
 import Footer from '../components/layout/Footer.astro';
 import '../styles/main.scss';
-interface Props {locale:Locale;page:PageKey}
-const {locale,page}=Astro.props;
-const copy=t(locale);
-const site=Astro.site ?? new URL('https://kheralia.com');
-const canonical=new URL(pathFor(locale,page),site).href;
-const links=(['es','en'] as const).map((lang)=>({lang,url:new URL(pathFor(lang,page),site).href}));
-const ready=import.meta.env.PUBLIC_SITE_READY==='true';
-const jsonld={
-  '@context':'https://schema.org',
-  '@type':'Organization',
-  name:'Kheralia Mind & Well',
-  url:new URL(pathFor(locale,'home'),site).href,
-  description:copy.meta.home.description,
-};
+
+interface Props { locale: Locale; page: PageKey }
+const { locale, page } = Astro.props;
+const site = Astro.site ?? new URL('https://kheralia.com');
+const origin = site.origin;
+const canonical = new URL(pathFor(locale, page), site).href;
+const altLangs = (['es', 'en'] as const).map((lang) => ({
+  lang,
+  url: new URL(pathFor(lang, page), site).href,
+}));
+const meta = seo[locale][page];
+const copy = t(locale);
+const ready = import.meta.env.PUBLIC_SITE_READY === 'true';
+const image = new URL(`/social/${page}-${locale}.jpg`, site).href;
+const siteHomepage = new URL('/', site).href;
+const pageLang = locale === 'es' ? 'es-ES' : 'en-GB';
+
+const organizationId = `${siteHomepage}#organization`;
+const websiteId = `${siteHomepage}#website`;
+const structuredData: Record<string, unknown>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': organizationId,
+    name: 'Kheralia Mind & Well',
+    alternateName: 'Kheralia',
+    url: siteHomepage,
+    logo: new URL('/brand-icon-512.png', site).href,
+    description: copy.meta.home.description,
+    areaServed: { '@type': 'AdministrativeArea', name: 'Mallorca, Illes Balears, España' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': websiteId,
+    url: siteHomepage,
+    name: 'Kheralia Mind & Well',
+    alternateName: 'Kheralia',
+    inLanguage: ['es-ES', 'en-GB'],
+    publisher: { '@id': organizationId },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${canonical}#webpage`,
+    url: canonical,
+    name: meta.title,
+    description: meta.description,
+    inLanguage: pageLang,
+    isPartOf: { '@id': websiteId },
+    about: { '@id': organizationId },
+    primaryImageOfPage: { '@type': 'ImageObject', url: image },
+  },
+];
+// Deep pages: breadcrumb trail helps search engines interpret hierarchy.
+if (page !== 'home') {
+  structuredData.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: locale === 'es' ? 'Inicio' : 'Home', item: new URL(pathFor(locale, 'home'), site).href },
+      { '@type': 'ListItem', position: 2, name: copy.nav[page], item: canonical },
+    ],
+  });
+}
 ---
 <!doctype html>
 <html lang={locale}>
   <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="theme-color" content="#F7F2EA"/>
-    <title>{`${copy.meta[page].title} | Kheralia Mind & Well`}</title>
-    <meta name="description" content={copy.meta[page].description}/>
-    <meta name="robots" content={ready?'index,follow':'noindex,nofollow'}/>
-    <link rel="canonical" href={canonical}/>
-    {links.map(({lang,url})=><link rel="alternate" hreflang={lang} href={url}/>)}
-    <link rel="alternate" hreflang="x-default" href={new URL(pathFor('es',page),site).href}/>
-    <meta property="og:type" content="website"/><meta property="og:site_name" content="Kheralia Mind & Well"/>
-    <meta property="og:title" content={`${copy.meta[page].title} | Kheralia`}/>
-    <meta property="og:description" content={copy.meta[page].description}/>
-    <meta property="og:url" content={canonical}/>
-    <meta property="og:locale" content={locale==='es'?'es_ES':'en_GB'}/>
-    <meta name="twitter:card" content="summary_large_image"/>
-    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonld).replace(/</g,'\\u003c')}/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#F7F2EA" />
+    <meta name="color-scheme" content="light" />
+    <title>{meta.title}</title>
+    <meta name="description" content={meta.description} />
+    <meta name="robots" content={ready ? 'index,follow' : 'noindex,nofollow'} />
+    <link rel="canonical" href={canonical} />
+    {altLangs.map(({ lang, url }) => <link rel="alternate" hreflang={lang} href={url} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL(pathFor('es', page), site).href} />
+
+    <!-- Site icon, pinned tab and home screen -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Social previews: Facebook, WhatsApp, LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kheralia Mind & Well" />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={locale === 'es' ? 'es_ES' : 'en_GB'} />
+    <meta property="og:locale:alternate" content={locale === 'es' ? 'en_GB' : 'es_ES'} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:secure_url" content={image} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={meta.imageAlt} />
+
+    <!-- X / Twitter large summary card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content={meta.imageAlt} />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')} />
   </head>
   <body>
-    <a href="#main-content" class="skip-link">{locale==='es'?'Saltar al contenido':'Skip to content'}</a>
-    <Navbar {locale} {page}/>
-    <main id="main-content"><slot/></main>
-    <Footer {locale}/>
+    <a href="#main-content" class="skip-link">{locale === 'es' ? 'Saltar al contenido' : 'Skip to content'}</a>
+    <Navbar {locale} {page} />
+    <main id="main-content"><slot /></main>
+    <Footer {locale} />
   </body>
 </html>
