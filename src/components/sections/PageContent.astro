@@ -117,14 +117,6 @@ const c = t(locale);
   page === "contact" && (
     <>
       <ContactForm {locale} {status} />
-      <div class="container contact-promises">
-        {c.contact.promise.map((item) => (
-          <div>
-            <h3>{item.title}</h3>
-            <p>{item.subtitle}</p>
-          </div>
-        ))}
-      </div>
       <QuoteBanner {locale} bottomFill="#f9f5ed" />
     </>
   )

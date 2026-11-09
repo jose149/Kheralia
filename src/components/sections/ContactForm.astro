@@ -4,6 +4,7 @@ import { t } from '../../i18n/content';
 import Icon from '../ui/Icon.astro';
 import WaveDivider from '../decor/WaveDivider.astro';
 import BotanicalSprig from '../decor/BotanicalSprig.astro';
+import ContactDetailsPanel from './ContactDetailsPanel.astro';
 
 interface Props {
   locale: Locale;
@@ -13,6 +14,24 @@ const { locale, status } = Astro.props;
 const c = t(locale);
 const f = c.contact.fields;
 const spanish = locale === 'es';
+
+const promiseItems = [
+  {
+    icon: 'message' as const,
+    title: spanish ? 'Respuesta cercana' : 'Close response',
+    subtitle: spanish ? 'Le contactamos en menos de 24 horas.' : 'We get back to you in under 24 hours.',
+  },
+  {
+    icon: 'people' as const,
+    title: spanish ? 'Atención personalizada' : 'Personalised support',
+    subtitle: spanish ? 'Escuchamos cada situación con calma y sin compromiso.' : 'We listen carefully, with no obligation.',
+  },
+  {
+    icon: 'shield' as const,
+    title: spanish ? 'Confidencialidad' : 'Confidentiality',
+    subtitle: spanish ? 'Su información está siempre protegida.' : 'Your information is always protected.',
+  },
+];
 ---
 <section class="section contact-section" id="contact-form">
   <WaveDivider edge="top" color="var(--cream)"/>
@@ -20,8 +39,8 @@ const spanish = locale === 'es';
   <BotanicalSprig tone="sage" className="k-botanical--form-right"/>
   <div class="container contact-section__grid">
     <div class="form-card">
-      <span class="eyebrow">{spanish ? 'CONTACTO PROFESIONAL' : 'PROFESSIONAL ENQUIRY'}</span>
-      <h2>{spanish ? 'Hablemos de\ncolaborar' : 'Let’s explore\nworking together'}</h2>
+      <span class="eyebrow">{spanish ? 'ENVÍENOS SU CONSULTA' : 'SEND US YOUR ENQUIRY'}</span>
+      <h2>{spanish ? 'Cuéntenos cómo\npodemos ayudarle' : 'Tell us how\nwe can help'}</h2>
       <p>{c.contact.description}</p>
 
       {status === 'sent' && <div class="form-status form-status--success" role="status"><Icon name="check" size={18}/>{f.success}</div>}
@@ -33,7 +52,6 @@ const spanish = locale === 'es';
 
       <form action="/api/contact" method="POST" class="contact-form">
         <input type="hidden" name="locale" value={locale}/>
-        <!-- Honeypot: keep empty. Name must match the API route. -->
         <div class="honeypot" aria-hidden="true">
           <label for="contact-website">Website</label>
           <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off"/>
@@ -41,20 +59,20 @@ const spanish = locale === 'es';
 
         <div class="form-field">
           <label for="contact-organization">{f.organization} <span aria-hidden="true">*</span></label>
-          <input id="contact-organization" name="organization" autocomplete="organization" minlength="2" maxlength="140" required/>
+          <input id="contact-organization" name="organization" autocomplete="organization" minlength="2" maxlength="140" required placeholder={spanish ? 'Ej. Hospital o centro sanitario' : 'e.g. Hospital or healthcare organisation'}/>
         </div>
         <div class="form-field">
           <label for="contact-name">{f.name} <span aria-hidden="true">*</span></label>
-          <input id="contact-name" name="name" autocomplete="name" minlength="2" maxlength="100" required/>
+          <input id="contact-name" name="name" autocomplete="name" minlength="2" maxlength="100" required placeholder={spanish ? 'Ej. María García' : 'e.g. Maria Garcia'}/>
         </div>
         <div class="contact-form__row">
           <div class="form-field">
             <label for="contact-phone">{f.phone} <span aria-hidden="true">*</span></label>
-            <input id="contact-phone" name="phone" type="tel" autocomplete="tel" minlength="6" maxlength="30" required/>
+            <input id="contact-phone" name="phone" type="tel" autocomplete="tel" minlength="6" maxlength="30" required placeholder={spanish ? 'Ej. +34 600 123 456' : 'e.g. +34 600 123 456'}/>
           </div>
           <div class="form-field">
             <label for="contact-email">{f.email} <span aria-hidden="true">*</span></label>
-            <input id="contact-email" name="email" type="email" autocomplete="email" maxlength="180" required/>
+            <input id="contact-email" name="email" type="email" autocomplete="email" maxlength="180" required placeholder={spanish ? 'Ej. maria@centro.es' : 'e.g. maria@organisation.com'}/>
           </div>
         </div>
         <div class="form-field">
@@ -62,8 +80,8 @@ const spanish = locale === 'es';
           <textarea
             id="contact-message" name="message" rows="5" minlength="10" maxlength="1800" required
             placeholder={spanish
-              ? 'Cuéntenos qué tipo de colaboración necesita. No incluya datos identificativos de pacientes ni información médica.'
-              : 'Tell us about the partnership or support you need. Please do not include patient-identifiable details or medical information.'}
+              ? 'Cuéntenos qué apoyo necesita su entidad, para qué tipo de pacientes y cualquier detalle organizativo relevante. No incluya datos identificativos de pacientes ni información médica.'
+              : 'Tell us what kind of support your organisation needs, the type of patients involved and any relevant organisational details. Please do not include identifiable patient data or medical information.'}
           ></textarea>
         </div>
         <div class="form-check">
@@ -71,35 +89,31 @@ const spanish = locale === 'es';
           <label for="contact-consent">
             {f.consent}
             <a href={`/${locale}/${spanish ? 'privacidad' : 'privacy'}/`}>
-              {spanish ? 'Leer información de privacidad' : 'Read privacy information'}
+              {spanish ? 'política de privacidad' : 'privacy policy'}
             </a>
           </label>
         </div>
         <button type="submit" class="button button--primary">{f.submit}<Icon name="arrow" size={17}/></button>
       </form>
     </div>
-    <aside class="direct-contact">
-      <span class="eyebrow">{spanish ? 'CONTACTO DIRECTO' : 'DIRECT CONTACT'}</span>
-      <h2>{c.contact.detailsTitle}</h2>
-      <div class="direct-contact__item">
-        <Icon name="message"/>
-        <div>
-          <strong>{spanish ? 'Escríbenos' : 'Send us an enquiry'}</strong>
-          <span>{spanish ? 'Solicita información sobre servicios y colaboraciones.' : 'Ask about services and potential partnerships.'}</span>
-        </div>
-      </div>
-      <div class="direct-contact__item">
-        <Icon name="pin"/>
-        <div><strong>{c.contact.zoneTitle}</strong><span>{c.contact.zoneDescription}</span></div>
-      </div>
-      <div class="contact-location">
-        <Icon name="leaf" size={46}/>
-        <h3>{spanish ? 'Cada caso requiere su propio plan' : 'A tailored plan for each case'}</h3>
-        <p>{spanish ? 'Valoración, organización y supervisión del apoyo domiciliario.' : 'Assessment, organisation and supervision of support at home.'}</p>
-      </div>
-    </aside>
+
+    <ContactDetailsPanel locale={locale}/>
   </div>
 </section>
+
+<div class="container contact-promises">
+  {promiseItems.map((item, index) => (
+    <div class="contact-promise">
+      <div class:list={['contact-promise__icon', {'contact-promise__icon--blue': index === 2}]}>
+        <Icon name={item.icon} size={30}/>
+      </div>
+      <div>
+        <h3>{item.title}</h3>
+        <p>{item.subtitle}</p>
+      </div>
+    </div>
+  ))}
+</div>
 
 <script is:inline>
   const status = new URLSearchParams(window.location.search).get('status');
