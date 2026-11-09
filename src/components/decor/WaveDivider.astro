@@ -4,22 +4,24 @@
  * un corte dentado. Se pinta sobre el borde de una sección existente.
  */
 interface Props {
-  edge?: 'top' | 'bottom';
+  edge?: "top" | "bottom";
   color: string;
   height?: number;
 }
-const { edge = 'top', color, height = 48 } = Astro.props;
-const shape = edge === 'top'
-  ? 'M0 0 H1440 V29 C1180 16 1055 42 845 30 C650 16 507 44 323 34 C186 26 80 35 0 31 Z'
-  : 'M0 38 C224 23 377 49 575 42 C797 34 931 18 1116 29 C1288 39 1354 29 1440 24 V72 H0 Z';
+const { edge = "top", color, height = 150 } = Astro.props;
+const shape =
+  edge === "top"
+    ? "M0 0 H1440 V29 C1180 16 1055 42 845 30 C650 16 507 44 323 34 C186 26 80 35 0 31 Z"
+    : "M0 38 C224 23 377 49 575 42 C797 34 931 18 1116 29 C1288 39 1354 29 1440 24 V72 H0 Z";
 ---
+
 <svg
-  class:list={['k-wave', `k-wave--${edge}`]}
+  class:list={["k-wave", `k-wave--${edge}`]}
   style={`--k-wave-height:${height}px`}
   viewBox="0 0 1440 72"
   preserveAspectRatio="none"
   aria-hidden="true"
   focusable="false"
 >
-  <path d={shape} fill={color}/>
+  <path d={shape} fill={color}></path>
 </svg>
