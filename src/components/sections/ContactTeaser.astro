@@ -4,11 +4,13 @@ import { pathFor } from '../../i18n/routes';
 import { t } from '../../i18n/content';
 import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
-interface Props { locale: Locale }
-const { locale } = Astro.props;
+import BotanicalSprig from '../decor/BotanicalSprig.astro';
+interface Props { locale: Locale; variant?: 'home' | 'services' | 'about' }
+const { locale, variant = 'home' } = Astro.props;
 const c = t(locale);
 ---
-<section class="contact-teaser section">
+<section class:list={['contact-teaser', 'section', `contact-teaser--${variant}`]}>
+  <BotanicalSprig tone="sage" className="k-botanical--contact"/>
   <div class="container contact-teaser__grid">
     <div>
       <span class="eyebrow">{c.contact.eyebrow}</span>

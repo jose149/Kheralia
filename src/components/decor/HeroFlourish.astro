@@ -1,0 +1,25 @@
+---
+/**
+ * Detalle concreto del hero de los mockups: perfil curvo dorado y hojas marfil.
+ * Lo insertamos solamente en el hero, no como decoración genérica de secciones.
+ */
+interface Props { className?: string }
+const { className = '' } = Astro.props;
+---
+<svg
+  class:list={['k-hero-flourish', className]}
+  viewBox="0 0 205 385"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path d="M184 -9 C105 37 51 102 51 205 C51 270 82 337 132 389" fill="none" stroke="#B99A65" stroke-width="1.65" stroke-linecap="round"/>
+  <path d="M187 -9 C107 38 54 102 54 204" fill="none" stroke="#E1CDAC" stroke-opacity=".48" stroke-width=".75"/>
+  <path d="M91 300 C93 255 73 225 74 176 C74 144 91 112 91 76" fill="none" stroke="#A6A78C" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M80 259 C64 241 45 219 31 211 M77 192 C103 177 117 152 124 127 M84 141 C67 123 57 105 57 83" fill="none" stroke="#A6A78C" stroke-width="1.25" stroke-linecap="round"/>
+  <path d="M31 211 C3 215 5 242 50 260 C53 239 44 221 31 211Z" fill="#E4DECE" fill-opacity=".87" stroke="#CEC8B6" stroke-width=".7"/>
+  <path d="M124 127 C94 137 89 162 101 183 C119 174 127 149 124 127Z" fill="#E2DECF" fill-opacity=".88" stroke="#C8C4B5" stroke-width=".7"/>
+  <path d="M57 83 C38 99 40 120 71 143 C79 119 71 100 57 83Z" fill="#E5DDCC" fill-opacity=".86" stroke="#CEC4B0" stroke-width=".7"/>
+  <path d="M91 76 C72 83 72 106 87 125 C100 107 103 88 91 76Z" fill="#E6DFD0" fill-opacity=".78" stroke="#D6C9B4" stroke-width=".55"/>
+  <path d="M45 245 Q35 222 31 211 M107 174 Q117 147 124 127 M67 135 Q58 108 57 83" fill="none" stroke="#C6C0AD" stroke-width=".75" stroke-opacity=".75" stroke-linecap="round"/>
+</svg>

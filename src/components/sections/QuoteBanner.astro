@@ -1,7 +1,10 @@
 ---
 import type {Locale} from '../../i18n/routes';
 import {t} from '../../i18n/content';
-interface Props {locale:Locale}
-const {locale}=Astro.props;
+import WaveDivider from '../decor/WaveDivider.astro';
+interface Props { locale: Locale; bottomFill?: string }
+const { locale, bottomFill = '#E7EBE1' } = Astro.props;
 ---
-<section class="quote-banner"><div class="container"><p>“{t(locale).quote}”</p><span class="quote-banner__rule" aria-hidden="true"></span></div></section>
+<section class="quote-banner">
+  <WaveDivider edge="bottom" color={bottomFill}/>
+  <div class="container"><p>“{t(locale).quote}”</p><span class="quote-banner__rule" aria-hidden="true"></span></div></section>

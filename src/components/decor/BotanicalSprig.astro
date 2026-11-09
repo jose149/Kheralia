@@ -1,0 +1,39 @@
+---
+/**
+ * Rama mediterránea de fondo. Hojas asimétricas con rellenos suaves, nervaduras
+ * y trazos finos para reproducir el lenguaje botánico de los mockups.
+ * No constituye contenido informativo.
+ */
+interface Props {
+  tone?: 'sage' | 'gold';
+  className?: string;
+  mirrored?: boolean;
+}
+const { tone = 'sage', className = '', mirrored = false } = Astro.props;
+---
+<svg
+  class:list={['k-botanical', `k-botanical--${tone}`, { 'k-botanical--mirrored': mirrored }, className]}
+  viewBox="0 0 190 380"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+  focusable="false"
+>
+  <g class="botanical-branch">
+    <!-- Rama sinuosa, sin simetría artificial -->
+    <path class="botanical-stem" d="M101 387 C94 341 76 302 89 256 C101 219 83 190 96 155 C109 119 107 77 114 43"/>
+    <path class="botanical-stem botanical-twig" d="M92 325 C113 305 138 286 151 258 M89 279 C60 265 41 234 36 212 M95 218 C118 194 146 169 149 139 M97 172 C71 148 58 117 59 93 M106 105 C128 89 146 63 151 39"/>
+
+    <!-- Hojas irregulares en distintos planos -->
+    <path class="botanical-leaf" d="M151 258 C124 257 113 278 125 302 C144 294 155 273 151 258Z"/>
+    <path class="botanical-leaf botanical-leaf--light" d="M36 212 C9 227 11 256 53 270 C57 244 48 223 36 212Z"/>
+    <path class="botanical-leaf" d="M149 139 C119 142 110 168 127 192 C150 185 160 161 149 139Z"/>
+    <path class="botanical-leaf botanical-leaf--light" d="M59 93 C34 111 40 143 75 161 C86 130 73 107 59 93Z"/>
+    <path class="botanical-leaf" d="M151 39 C117 45 110 74 126 93 C151 86 161 63 151 39Z"/>
+    <path class="botanical-leaf botanical-leaf--faint" d="M114 43 C91 55 87 79 105 101 C120 83 123 61 114 43Z"/>
+    <path class="botanical-leaf botanical-leaf--faint" d="M88 256 C66 249 56 231 54 209 C78 207 96 227 88 256Z"/>
+    <!-- Nervaduras, más finas y tenues que el contorno -->
+    <g class="botanical-veins">
+      <path d="M128 293 Q145 274 151 258 M48 254 Q40 234 36 212 M126 187 Q144 162 149 139 M73 150 Q59 118 59 93 M126 88 Q144 57 151 39 M106 90 Q110 66 114 43 M84 249 Q71 228 54 209"/>
+    </g>
+  </g>
+</svg>

@@ -5,11 +5,16 @@ import {t} from '../../i18n/content';
 import Button from '../ui/Button.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 import Icon from '../ui/Icon.astro';
+import WaveDivider from '../decor/WaveDivider.astro';
+import BotanicalSprig from '../decor/BotanicalSprig.astro';
 interface Props {locale:Locale;compact?:boolean}
 const {locale,compact=false}=Astro.props;
 const c=t(locale);
 ---
 <section class:list={['philosophy','section',{'philosophy--compact':compact}]}>
+  <WaveDivider edge="top" color="var(--cream)"/>
+  <WaveDivider edge="bottom" color="var(--cream)"/>
+  <BotanicalSprig tone="sage" className="k-botanical--philosophy"/>
   <div class="container philosophy__grid">
     <div class="philosophy__copy">
       <SectionHeading eyebrow={c.philosophy.eyebrow} title={c.philosophy.title}/>

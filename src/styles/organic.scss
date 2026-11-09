@@ -1,0 +1,196 @@
+/*
+ * KHERALIA · Decoración editorial basada en los mockups aprobados.
+ * Placement deliberately explicit: no global branches, no repeating patterns.
+ * El SVG es decorativo, sin JS y no se lee por lectores de pantalla.
+ */
+.k-wave {
+  position: absolute;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: clamp(24px, 3.6vw, var(--k-wave-height, 48px));
+  pointer-events: none;
+  z-index: 2;
+}
+.k-wave--top { top: -1px; }
+.k-wave--bottom { bottom: -1px; }
+
+.k-botanical {
+  --botanical-color: #7c9788;
+  display: block;
+  position: absolute;
+  width: clamp(114px, 12vw, 188px);
+  height: auto;
+  color: var(--botanical-color);
+  pointer-events: none;
+  user-select: none;
+  opacity: .78;
+  z-index: 1;
+}
+.k-botanical--sage { --botanical-color: #7b9b89; }
+.k-botanical--gold { --botanical-color: #b69c75; }
+.k-botanical--mirrored { transform: scaleX(-1); }
+.k-botanical .botanical-stem { fill: none; stroke: currentColor; stroke-width: 1.55; stroke-linecap: round; }
+.k-botanical .botanical-twig { stroke-width: 1.25; }
+.k-botanical .botanical-leaf { fill: currentColor; fill-opacity: .34; stroke: currentColor; stroke-width: .8; stroke-opacity: .52; }
+.k-botanical .botanical-leaf--light { fill-opacity: .24; }
+.k-botanical .botanical-leaf--faint { fill-opacity: .19; }
+.k-botanical .botanical-veins { fill: none; stroke: #e2e9dc; stroke-width: .75; stroke-opacity: .8; stroke-linecap: round; }
+
+.k-hero-flourish {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  user-select: none;
+  width: clamp(140px, 17vw, 236px);
+  height: auto;
+  top: -1.2rem;
+  left: 40.5%;
+  opacity: .95;
+}
+
+/* Keep text and photographs above the low-amplitude waves. */
+.philosophy,
+.service-feature,
+.values-principles,
+.team-section,
+.story,
+.contact-section,
+.contact-teaser,
+.quote-banner,
+.hero,
+.hero-classic { position: relative; isolation: isolate; }
+
+.philosophy > .container,
+.service-feature > .container,
+.values-principles > .container,
+.team-section > .container,
+.story > .container,
+.contact-section > .container,
+.contact-teaser > .container,
+.quote-banner > .container { position: relative; z-index: 3; }
+
+/* Eliminar el icono ✦ genérico de la versión anterior. */
+.philosophy::before { display: none; }
+
+/* Inicio: una sola rama grande a la izquierda de «Nuestra esencia». */
+.philosophy > .k-botanical--philosophy {
+  left: -2.5rem;
+  bottom: 1.5rem;
+  width: clamp(125px, 15vw, 207px);
+  transform: rotate(-6deg);
+  opacity: .80;
+}
+
+/* Servicios: solo la primera y tercera banda tienen hojas, al extremo derecho. */
+.service-feature > .k-botanical--feature {
+  right: -3.5rem;
+  top: 8%;
+  width: clamp(125px, 14vw, 180px);
+  transform: rotate(5deg);
+  opacity: .68;
+}
+.service-feature:nth-child(3) > .k-botanical--feature { top: 10%; opacity: .64; }
+
+/* Sobre nosotros: un detalle en cada bloque largo, nunca sobre las tarjetas. */
+.values-principles > .k-botanical--values {
+  left: -2.8rem;
+  top: 12%;
+  width: clamp(125px, 14vw, 185px);
+  opacity: .72;
+}
+.team-section > .k-botanical--team {
+  right: -3.5rem;
+  top: 13%;
+  width: clamp(112px, 11vw, 155px);
+  opacity: .53;
+}
+.story > .k-botanical--story {
+  right: -3.7rem;
+  bottom: 4%;
+  width: clamp(115px, 12vw, 170px);
+  opacity: .60;
+}
+
+/* Contacto: ramas separadas, al margen, como en el mockup. */
+.contact-section > .k-botanical--form-left {
+  left: -4.2rem;
+  top: 34%;
+  width: clamp(124px, 14vw, 192px);
+  opacity: .57;
+}
+.contact-section > .k-botanical--form-right {
+  right: -4.5rem;
+  top: 15%;
+  width: clamp(130px, 14vw, 190px);
+  opacity: .52;
+}
+
+/* Contacto final: un único detalle natural, en el margen inferior. */
+.contact-teaser > .k-botanical--contact {
+  left: -3rem;
+  bottom: -2rem;
+  width: clamp(136px, 15vw, 210px);
+  opacity: .70;
+}
+.contact-teaser--home > .k-botanical--contact {
+  left: auto;
+  right: -2.8rem;
+  bottom: -3.3rem;
+  transform: scaleX(-1);
+  opacity: .65;
+}
+
+/* No desbordar ramas laterales fuera del viewport. */
+.service-feature,
+.values-principles,
+.team-section,
+.story,
+.contact-section { overflow: hidden; }
+
+/* En Sobre nosotros el bloque de historia vuelve al marfil del mockup. */
+.story { background: var(--cream); }
+
+/* Fotografía con contorno orgánico, sin aplicar adornos a todas las imágenes. */
+.hero__visual {
+  border-radius: 44% 0 0 24% / 56% 0 0 32%;
+}
+.hero-classic__photo {
+  border-radius: 38% 0 0 23% / 47% 0 0 28%;
+}
+.philosophy__image {
+  border-radius: 42% 0 32% 33% / 47% 0 22% 34%;
+}
+
+/* El paisaje ya incluye olivos; no se superpone otra rama encima. */
+.quote-banner { isolation: isolate; }
+
+@media (max-width: 820px) {
+  .k-wave { height: clamp(21px, 5vw, 37px); }
+  .k-hero-flourish {
+    top: 33%;
+    left: auto;
+    right: 58%;
+    width: 128px;
+    opacity: .70;
+  }
+  .philosophy > .k-botanical--philosophy { left: -3.6rem; bottom: 4%; opacity: .44; width: 142px; }
+  .service-feature > .k-botanical--feature { right: -4.2rem; top: 4%; opacity: .37; width: 140px; }
+  .team-section > .k-botanical--team,
+  .story > .k-botanical--story,
+  .contact-section > .k-botanical--form-right { opacity: .35; }
+}
+
+@media (max-width: 610px) {
+  .k-wave { height: 22px; }
+  .k-hero-flourish { display: none; } /* evita tapar el titular en móvil */
+  .philosophy > .k-botanical--philosophy { width: 105px; left: -3.6rem; bottom: 3%; opacity: .35; }
+  .values-principles > .k-botanical--values { left: -4rem; width: 125px; opacity: .26; }
+  .service-feature > .k-botanical--feature { right: -4.5rem; width: 110px; opacity: .28; }
+  .team-section > .k-botanical--team,
+  .story > .k-botanical--story,
+  .contact-section > .k-botanical--form-right { display: none; }
+  .contact-section > .k-botanical--form-left { left: -4rem; top: 28%; width: 115px; opacity: .22; }
+  .contact-teaser > .k-botanical--contact { left: -4rem; bottom: -2rem; width: 127px; opacity: .45; }
+  .contact-teaser--home > .k-botanical--contact { left: auto; right: -3.7rem; opacity: .46; }
+}
