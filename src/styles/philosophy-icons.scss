@@ -1,0 +1,146 @@
+/* Sobre nosotros · Nuestra filosofía / Nuestro enfoque
+   La referencia visual sitúa el texto a la izquierda y los tres iconos
+   a la derecha, con medallones orgánicos y divisores discretos. */
+.values-principles .values-principles__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+  align-items: center;
+  gap: clamp(1.3rem, 3vw, 3.5rem);
+}
+.values-principles .values-principles__intro {
+  padding-left: clamp(0rem, 2vw, 2rem);
+  position: relative;
+}
+.values-principles .values-principles__intro h2 {
+  white-space: pre-line;
+  max-width: 13ch;
+}
+.values-principles .values-principles__intro p {
+  margin-top: 1.25rem;
+  max-width: 43ch;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+.values-principles .values-principles__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  gap: 0;
+  width: 100%;
+  align-items: start;
+}
+.values-principles .principle {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 clamp(.7rem, 1.15vw, 1.5rem);
+}
+.values-principles .principle + .principle::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 38px;
+  height: 94px;
+  width: 1px;
+  background: rgba(180, 155, 117, .34);
+}
+.values-principles .principle__medallion {
+  width: 90px;
+  height: 77px;
+  border-radius: 55% 45% 56% 44% / 48% 58% 42% 52%;
+  background: rgba(237, 217, 201, .57);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: .55rem;
+  color: #ac7f3e;
+}
+.values-principles .principle:nth-child(2) .principle__medallion {
+  color: #153752;
+  background: rgba(209, 223, 208, .59);
+  border-radius: 49% 51% 46% 54% / 54% 45% 55% 46%;
+}
+.values-principles .principle:nth-child(3) .principle__medallion {
+  color: #aa7b43;
+  background: rgba(238, 221, 209, .59);
+  border-radius: 50% 50% 56% 44% / 49% 55% 45% 51%;
+}
+.values-principles .principle__art {
+  width: 61px;
+  height: 61px;
+  max-width: none;
+  flex-shrink: 0;
+  stroke-width: 2.1px;
+}
+.values-principles .principle h3 {
+  font-size: clamp(1.2rem, 1.75vw, 1.62rem);
+  letter-spacing: -.025em;
+  line-height: 1.12;
+  max-width: 13ch;
+  margin: .25rem auto .5rem;
+}
+.values-principles .principle p {
+  font-size: .89rem;
+  line-height: 1.45;
+  max-width: 19ch;
+  margin: 0 auto;
+}
+@media(max-width: 960px) {
+  .values-principles .values-principles__layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .values-principles .values-principles__intro {
+    padding-left: 0;
+  }
+  .values-principles .values-principles__intro h2 {
+    max-width: none;
+  }
+  .values-principles .values-principles__intro p {
+    max-width: 65ch;
+  }
+}
+@media(max-width: 610px) {
+  .values-principles .values-principles__grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .values-principles .principle {
+    display: grid;
+    grid-template-columns: 82px minmax(0,1fr);
+    grid-template-rows: auto auto;
+    column-gap: .85rem;
+    text-align: left;
+    align-items: center;
+    padding: 1rem 0;
+  }
+  .values-principles .principle + .principle::before {
+    left: 0;
+    right: 0;
+    width: auto;
+    top: 0;
+    height: 1px;
+  }
+  .values-principles .principle__medallion {
+    grid-row: 1 / span 2;
+    width: 75px;
+    height: 68px;
+    margin: 0;
+  }
+  .values-principles .principle__art {
+    width: 54px;
+    height: 54px;
+  }
+  .values-principles .principle h3 {
+    margin: 0 0 .25rem;
+    max-width: none;
+    font-size: 1.4rem;
+  }
+  .values-principles .principle p {
+    margin: 0;
+    max-width: 36ch;
+  }
+}

@@ -1,0 +1,46 @@
+---
+/**
+ * Iconos editoriales de «Nuestra filosofía».
+ * Basados en el mockup desktop aprobado de Sobre nosotros.
+ * Los valores `shield` y `leaf` se mantienen por compatibilidad con content.ts;
+ * aquí se representan como loto y acompañamiento humano, respectivamente.
+ */
+interface Props { name: 'heart' | 'shield' | 'leaf' }
+const { name } = Astro.props;
+---
+<svg
+  class:list={['principle__art', `principle__art--${name}`]}
+  width="70"
+  height="70"
+  viewBox="0 0 80 80"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2.25"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {name === 'heart' && (
+    <path d="M40 66 17.9 44.8C11.5 38.6 10.7 31.8 12.5 26.2c1.9-5.6 6.6-9.6 12.7-9.6 6.9 0 11.5 4.5 14.8 9 3.4-4.5 8.1-9 15-9 6.1 0 10.8 4 12.7 9.6 1.8 5.6 1 12.4-5.4 18.6L40 66Z"/>
+  )}
+  {name === 'shield' && (
+    <>
+      <path d="M40 8C29 21 27 31 28.8 43c3.2 8 7.4 10.5 11.2 13.8 3.8-3.3 8.4-6.2 11.2-13.8C53 31 51 21 40 8Z"/>
+      <path d="M26.5 30.5C15 30.5 7.5 31.5 6 34.5 9 48 19.1 57 36.5 57.2c-5.4-6.7-8.6-14.7-10-26.7Z"/>
+      <path d="M53.5 30.5c11.5 0 19 1 20.5 4-3 13.5-13.1 22.5-30.5 22.7 5.4-6.7 8.6-14.7 10-26.7Z"/>
+      <path d="M18.5 48.4C12.8 50.5 9 53.5 6.5 58c11 11.1 22.8 13.6 33.5 7.4M61.5 48.4c5.7 2.1 9.5 5.1 12 9.6C62.5 69.1 50.7 71.6 40 65.4"/>
+      <path d="M40 18.5v39" stroke-width="1.4" opacity=".45"/>
+    </>
+  )}
+  {name === 'leaf' && (
+    <>
+      <circle cx="26" cy="22" r="9.5" />
+      <path d="M9 60v-8.2C9 41.4 16.3 36 26 36c7.2 0 11.2 2.6 13.2 7" />
+      <circle cx="56.5" cy="17.5" r="9.2" />
+      <path d="M51.5 35.3a19.5 19.5 0 0 1 5-0.6c9.3 0 16.5 7 16.5 16.3V60" />
+      <path d="M41 61v-7.1c0-6.2-3-10.6-7.7-13" />
+      <path d="M49 65 40.5 57c-2.7-2.6-2.7-6.4-.4-8.7a6.5 6.5 0 0 1 8.9.2 6.5 6.5 0 0 1 8.9-.2c2.3 2.3 2.3 6.1-.4 8.7L49 65Z" fill="var(--cream)"/>
+    </>
+  )}
+</svg>
