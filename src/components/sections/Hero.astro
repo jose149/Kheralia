@@ -1,39 +1,75 @@
 ---
-import type {Locale,PageKey} from '../../i18n/routes';
-import {pathFor} from '../../i18n/routes';
-import {t} from '../../i18n/content';
-import Button from '../ui/Button.astro';
-import HeroFlourish from '../decor/HeroFlourish.astro';
-interface Props {locale:Locale;page:PageKey}
-const {locale,page}=Astro.props;
-const c=t(locale);
+import type { Locale, PageKey } from "../../i18n/routes";
+import { pathFor } from "../../i18n/routes";
+import { t } from "../../i18n/content";
+import Button from "../ui/Button.astro";
+import HeroFlourish from "../decor/HeroFlourish.astro";
+interface Props {
+  locale: Locale;
+  page: PageKey;
+}
+const { locale, page } = Astro.props;
+const c = t(locale);
 
 const heroImages = {
-  services: '/images/hero-services.webp',
-  about: '/images/hero-about.webp',
-  contact: '/images/hero-contact.webp',
+  home: "/images/hero-services.webp",
+  services: "/images/hero-services.webp",
+  about: "/images/hero-about.webp",
+  contact: "/images/hero-contact.webp",
 };
 const heroAlts = {
-  services: locale==='es' ? 'Cuidadora acompañando a una persona mayor en casa' : 'Caregiver accompanying an older person at home',
-  about: locale==='es' ? 'Escena cercana de atención domiciliaria en un entorno cálido' : 'Close home-care scene in a warm environment',
-  contact: locale==='es' ? 'Atención cercana y personalizada a domicilio' : 'Close and personalised home support',
+  home:
+    locale === "es"
+      ? "Cuidadora acompañando a una persona mayor en casa"
+      : "Caregiver accompanying an older person at home",
+  services:
+    locale === "es"
+      ? "Cuidadora acompañando a una persona mayor en casa"
+      : "Caregiver accompanying an older person at home",
+  about:
+    locale === "es"
+      ? "Escena cercana de atención domiciliaria en un entorno cálido"
+      : "Close home-care scene in a warm environment",
+  contact:
+    locale === "es"
+      ? "Atención cercana y personalizada a domicilio"
+      : "Close and personalised home support",
 };
-
 ---
-<section class:list={['hero',`hero--${page}`]}>
-  <HeroFlourish/>
+
+<section class:list={["hero", `hero--${page}`]}>
+  <HeroFlourish />
   <div class="container hero__grid">
     <div class="hero__content">
       <span class="eyebrow">{c.hero[page].eyebrow}</span>
       <h1>{c.hero[page].title}</h1>
       <p>{c.hero[page].description}</p>
       <div class="button-group">
-        <Button href={pathFor(locale,'contact')}>{page==='contact'?c.action.send:c.action.contact}</Button>
-        <Button variant="outline" href={pathFor(locale,page==='contact'?'services':'services')}>{page==='contact'?c.action.services:page==='home'?c.action.services:c.action.learn}</Button>
+        <Button href={pathFor(locale, "contact")}
+          >{page === "contact" ? c.action.send : c.action.contact}</Button
+        >
+        <Button
+          variant="outline"
+          href={pathFor(locale, page === "contact" ? "services" : "services")}
+          >{
+            page === "contact"
+              ? c.action.services
+              : page === "home"
+                ? c.action.services
+                : c.action.learn
+          }</Button
+        >
       </div>
     </div>
     <div class="hero__visual">
-      <img src={heroImages[page]} alt={heroAlts[page]} width="790" height="560" fetchpriority={page==='home'?'high':'auto'} decoding="async"/>
+      <img
+        src={heroImages[page]}
+        alt={heroAlts[page]}
+        width="790"
+        height="560"
+        fetchpriority={page === "home" ? "high" : "auto"}
+        decoding="async"
+      />
     </div>
   </div>
 </section>
