@@ -7,6 +7,18 @@ import HeroFlourish from '../decor/HeroFlourish.astro';
 interface Props {locale:Locale;page:PageKey}
 const {locale,page}=Astro.props;
 const c=t(locale);
+
+const heroImages = {
+  services: '/images/hero-services.webp',
+  about: '/images/hero-about.webp',
+  contact: '/images/hero-contact.webp',
+};
+const heroAlts = {
+  services: locale==='es' ? 'Cuidadora acompañando a una persona mayor en casa' : 'Caregiver accompanying an older person at home',
+  about: locale==='es' ? 'Escena cercana de atención domiciliaria en un entorno cálido' : 'Close home-care scene in a warm environment',
+  contact: locale==='es' ? 'Atención cercana y personalizada a domicilio' : 'Close and personalised home support',
+};
+
 ---
 <section class:list={['hero',`hero--${page}`]}>
   <HeroFlourish/>
@@ -21,17 +33,7 @@ const c=t(locale);
       </div>
     </div>
     <div class="hero__visual">
-      <img src="/images/hero-care.webp" alt={locale==='es'?'Persona mayor y cuidadora conversando con una sonrisa (imagen provisional)':'Older person and caregiver sharing a moment (placeholder image)'} width="790" height="560" fetchpriority={page==='home'?'high':'auto'} decoding="async"/>
+      <img src={heroImages[page]} alt={heroAlts[page]} width="790" height="560" fetchpriority={page==='home'?'high':'auto'} decoding="async"/>
     </div>
   </div>
 </section>
-
-<!-- Ajuste exclusivo de Servicios: sin fotografía de Hero en tablet/móvil. -->
-<style>
-  @media (max-width: 820px) {
-    .hero--services .hero__visual,
-    .hero--services :global(.k-hero-flourish) {
-      display: none;
-    }
-  }
-</style>

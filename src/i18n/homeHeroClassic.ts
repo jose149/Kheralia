@@ -1,6 +1,6 @@
 import type { Locale } from './routes';
 
-/** Textos del hero clásico: una única fuente para ambos idiomas. */
+/** Textos del hero clásico; independientes de la tipografía y del CSS. */
 export const homeHeroClassic: Record<Locale, {
   title: string;
   description: string;
@@ -8,23 +8,23 @@ export const homeHeroClassic: Record<Locale, {
   values: { icon: 'heart' | 'home' | 'people'; title: string; subtitle: string }[];
 }> = {
   es: {
-    title: 'Cuidado en casa,\ncon humanidad\ny confianza',
-    description: 'Acompañamiento personal y atención domiciliaria para personas mayores o dependientes, con un enfoque humano, profesional y personalizado.',
-    imageAlt: 'Persona mayor y cuidadora compartiendo una conversación cercana (fotografía provisional)',
+    title: 'Cuidar mejor empieza\npor comprender',
+    description: 'Para hospitales, clínicas y otras entidades, diseñamos planes de intervención domiciliaria individualizados con apoyo de profesionales especializados en Psicología, objetivos concretos y supervisión técnica.',
+    imageAlt: 'Profesionales y personas mayores compartiendo un momento de atención cercana en el hogar',
     values: [
-      { icon: 'heart', title: 'Bienestar', subtitle: 'y calidad de vida' },
-      { icon: 'home', title: 'En la comodidad', subtitle: 'de su hogar' },
-      { icon: 'people', title: 'Atención profesional', subtitle: 'y cercana' },
+      { icon: 'heart', title: 'Valoración', subtitle: 'individualizada' },
+      { icon: 'home', title: 'Plan de intervención', subtitle: 'con objetivos' },
+      { icon: 'people', title: 'Psicología', subtitle: 'y supervisión' },
     ],
   },
   en: {
-    title: 'Care at home,\nwith humanity\nand trust',
-    description: 'Personal companionship and home care for older adults and people who need support, with a human, professional and personalised approach.',
-    imageAlt: 'Older woman and caregiver sharing a warm conversation (placeholder photograph)',
+    title: 'Better care begins\nwith understanding',
+    description: 'For hospitals, clinics and other organisations, we design individual home support plans with input from psychology specialists, clear goals and technical oversight.',
+    imageAlt: 'Professionals and older adults sharing a warm moment of support at home',
     values: [
-      { icon: 'heart', title: 'Wellbeing', subtitle: 'and quality of life' },
-      { icon: 'home', title: 'The comfort', subtitle: 'of your home' },
-      { icon: 'people', title: 'Professional care', subtitle: 'with warmth' },
+      { icon: 'heart', title: 'Individual', subtitle: 'assessment' },
+      { icon: 'home', title: 'A tailored', subtitle: 'support plan' },
+      { icon: 'people', title: 'Psychology', subtitle: 'and oversight' },
     ],
   },
 };

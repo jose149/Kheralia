@@ -1,17 +1,24 @@
 ---
-import type {Locale} from '../../i18n/routes';
-import {t} from '../../i18n/content';
+import type { Locale } from '../../i18n/routes';
+import { t } from '../../i18n/content';
 import Icon from '../ui/Icon.astro';
-interface Props {locale:Locale}
-const {locale}=Astro.props;
-const c=t(locale);
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const c = t(locale);
+const icons = ['heart', 'home', 'shield'] as const;
 ---
 <section class="section reviews" aria-labelledby="reviews-title">
   <div class="container">
     <span class="eyebrow">{c.reviews.eyebrow}</span>
     <h2 id="reviews-title">{c.reviews.title}</h2>
     <div class="reviews__grid">
-      {[1,2,3].map((number)=><div class="reviews__placeholder" aria-label={`${locale==='es'?'Testimonio pendiente':'Testimonial pending'} ${number}`}><Icon name="message" size={31}/><p>{c.reviews.pending}</p><span class="reviews__skeleton" aria-hidden="true"></span></div>)}
+      {c.process.steps.map((step, index) => (
+        <div class="reviews__placeholder">
+          <Icon name={icons[index] ?? 'heart'} size={31}/>
+          <h3>{step.title}</h3>
+          <p>{step.description}</p>
+        </div>
+      ))}
     </div>
   </div>
 </section>
