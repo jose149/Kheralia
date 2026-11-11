@@ -1,10 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalDocument from '../../components/legal/LegalDocument.astro';
 ---
-<BaseLayout locale="en" page="contact">
-  <section class="container section">
-    <span class="eyebrow">KHERALIA</span>
-    <h1>Privacy policy</h1>
-    <p style="margin-top:2rem;max-width:680px">Legal copy awaits approval with the business’s verified company details. Do not publish until this information is completed.</p>
-  </section>
+<BaseLayout locale="en" page="contact" legalKind="privacy">
+  <LegalDocument locale="en" kind="privacy" />
 </BaseLayout>

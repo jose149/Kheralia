@@ -1,0 +1,262 @@
+---
+import type { Locale } from '../../i18n/routes';
+import type { LegalKind } from '../../config/legal';
+import { legalIdentity as owner, legalPath } from '../../config/legal';
+interface Props { locale: Locale; kind: LegalKind; }
+const {locale,kind} = Astro.props;
+const es=locale==='es';
+const notice=kind==='notice';
+const date=es?'11 de noviembre de 2026':'11 November 2026';
+const navLinks=notice ? (es ? [
+  {href:'#titular',label:'Titularidad'}, {href:'#finalidad',label:'Objeto del sitio'},
+  {href:'#propiedad',label:'Propiedad intelectual'}, {href:'#responsabilidad',label:'Responsabilidad'},
+  {href:'#normativa',label:'Normativa'}
+] : [
+  {href:'#titular',label:'Provider identification'}, {href:'#finalidad',label:'Purpose of the site'},
+  {href:'#propiedad',label:'Intellectual property'}, {href:'#responsabilidad',label:'Liability'},
+  {href:'#normativa',label:'Applicable law'}
+]) : (es ? [
+  {href:'#responsable',label:'Responsable'}, {href:'#datos',label:'Datos tratados'},
+  {href:'#finalidades',label:'Finalidades y bases'}, {href:'#destinatarios',label:'Destinatarios'},
+  {href:'#conservacion',label:'Conservación'}, {href:'#derechos',label:'Tus derechos'},
+  {href:'#seguridad',label:'Seguridad'}
+] : [
+  {href:'#responsable',label:'Controller'}, {href:'#datos',label:'Personal data'},
+  {href:'#finalidades',label:'Purposes and grounds'}, {href:'#destinatarios',label:'Recipients'},
+  {href:'#conservacion',label:'Retention'}, {href:'#derechos',label:'Your rights'},
+  {href:'#seguridad',label:'Security'}
+]);
+---
+<section class="legal-document">
+  <div class="container legal-document__hero">
+    <div>
+      <p class="legal-document__eyebrow">KHERALIA · {es?'INFORMACIÓN LEGAL':'LEGAL INFORMATION'}</p>
+      <h1>{notice ? (es?'Aviso legal':'Legal notice') : (es?'Política de privacidad':'Privacy policy')}</h1>
+      <p class="legal-document__intro">{notice
+        ? (es?'Información sobre el titular y las condiciones de uso de este sitio web.':'Information about the website provider and the terms of use of this website.')
+        : (es?'Cómo tratamos los datos personales cuando visitas nuestra web o contactas con nosotros.':'How we process personal data when you visit our website or get in touch.')}</p>
+      <p class="legal-document__updated">{es?'Última actualización':'Last updated'}: {date}</p>
+    </div>
+    <div class="legal-document__mark" aria-hidden="true">K.</div>
+  </div>
+  <div class="container legal-document__grid">
+    <nav class="legal-document__index" aria-label={es?'Índice de esta página':'On this page'}>
+      <p>{es?'EN ESTA PÁGINA':'ON THIS PAGE'}</p>
+      {navLinks.map((link)=><a href={link.href}>{link.label}</a>)}
+    </nav>
+    <article class="legal-document__body">
+      {notice ? (
+        es ? (
+          <>
+            <section id="titular">
+              <h2>1. Identificación del titular</h2>
+              <p>En cumplimiento del artículo 10 de la Ley 34/2002, de servicios de la sociedad de la información y de comercio electrónico (LSSI-CE), se facilita la siguiente información sobre la persona responsable del sitio web:</p>
+              <dl class="legal-document__facts">
+                <div><dt>Nombre comercial</dt><dd>{owner.commercialName}</dd></div>
+                <div><dt>Titular legal</dt><dd>{owner.legalName}</dd></div>
+                <div><dt>NIF del titular</dt><dd>{owner.nif}</dd></div>
+                <div><dt>Dirección de contacto</dt><dd>{owner.address}</dd></div>
+                <div><dt>Correo electrónico</dt><dd><a href={`mailto:${owner.email}`}>{owner.email}</a></dd></div>
+              </dl>
+              <p>La titularidad corresponde a la persona física o jurídica que ejerza efectivamente la actividad. Si cambia la forma jurídica del negocio, esta información deberá actualizarse, incluidos los datos registrales y autorizaciones exigibles cuando procedan.</p>
+            </section>
+            <section id="finalidad">
+              <h2>2. Objeto y condiciones de uso</h2>
+              <p>Este sitio presenta los servicios y el enfoque de Kheralia Mind &amp; Well en Mallorca, con información sobre sus planes de intervención y coordinación de apoyos domiciliarios, y ofrece vías de contacto para solicitar información o plantear colaboraciones profesionales.</p>
+              <p>Los contenidos tienen carácter informativo y no constituyen por sí mismos un contrato, un diagnóstico médico o psicológico ni una indicación clínica individualizada. La prestación de un servicio requiere la valoración y las condiciones que se acuerden en cada caso.</p>
+              <p>La persona que utiliza el sitio se compromete a hacerlo de manera lícita, respetuosa y sin comprometer su funcionamiento o la seguridad de terceros.</p>
+            </section>
+            <section id="propiedad">
+              <h2>3. Propiedad intelectual e industrial</h2>
+              <p>Los textos, elementos gráficos, diseño, identidad visual y demás contenidos están protegidos por los derechos que correspondan a sus respectivos titulares. El acceso a la web no implica cesión de derechos de explotación. Queda prohibida su reproducción o distribución fuera de los supuestos autorizados por la ley o sin autorización de quien ostente los derechos.</p>
+            </section>
+            <section id="responsabilidad">
+              <h2>4. Información, enlaces y disponibilidad</h2>
+              <p>Kheralia procura que la información sea comprensible y esté actualizada. Puede modificar contenidos y características del sitio para corregir errores o reflejar cambios en sus servicios, sin perjuicio de las obligaciones legales aplicables.</p>
+              <p>Los enlaces a sitios externos se facilitan por utilidad informativa. Sus contenidos y prácticas de privacidad corresponden a sus titulares, salvo que se indique expresamente lo contrario.</p>
+            </section>
+            <section id="normativa">
+              <h2>5. Legislación aplicable y contacto</h2>
+              <p>Este sitio se rige por la legislación española que resulte aplicable, en particular la LSSI-CE, el Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica 3/2018 de Protección de Datos Personales y garantía de los derechos digitales.</p>
+              <p>Para consultas relacionadas con el sitio, escribe a <a href={`mailto:${owner.email}`}>{owner.email}</a>. Consulta también la <a href={legalPath('es','privacy')}>Política de privacidad</a>. Cualquier controversia se resolverá conforme a las normas sobre competencia judicial que legalmente correspondan, sin limitar los derechos de los consumidores.</p>
+            </section>
+          </>
+        ) : (
+          <>
+            <section id="titular">
+              <h2>1. Provider identification</h2>
+              <p>In accordance with Article 10 of Spanish Law 34/2002 on information society services and electronic commerce, the details of the website provider are as follows:</p>
+              <dl class="legal-document__facts">
+                <div><dt>Trading name</dt><dd>{owner.commercialName}</dd></div>
+                <div><dt>Legal owner</dt><dd>{owner.legalName}</dd></div>
+                <div><dt>Tax identification number (NIF)</dt><dd>{owner.nif}</dd></div>
+                <div><dt>Contact address</dt><dd>{owner.address}</dd></div>
+                <div><dt>Email</dt><dd><a href={`mailto:${owner.email}`}>{owner.email}</a></dd></div>
+              </dl>
+              <p>The legal provider must be the individual or company actually responsible for the activity. Where its legal form changes, identification, applicable registration details and authorisations must be updated.</p>
+            </section>
+            <section id="finalidad">
+              <h2>2. Purpose and use of this website</h2>
+              <p>This website describes the services and approach of Kheralia Mind &amp; Well in Mallorca, including individual care and intervention planning and the coordination of support at home. It provides channels for enquiries and professional collaboration.</p>
+              <p>Its contents are for general information only and do not, by themselves, constitute a contract, an individual medical or psychological diagnosis, or clinical advice. Any service arrangement is subject to an individual assessment and agreed terms.</p>
+              <p>Visitors must use the website lawfully, respectfully, and without compromising its functionality or the security of others.</p>
+            </section>
+            <section id="propiedad">
+              <h2>3. Intellectual and industrial property</h2>
+              <p>Text, graphics, design, visual identity and other materials are protected by the rights of their respective owners. Access to the website does not grant reproduction or distribution rights beyond those permitted by law or expressly authorised by the rights holder.</p>
+            </section>
+            <section id="responsabilidad">
+              <h2>4. Content, external links and availability</h2>
+              <p>Kheralia seeks to keep this website clear and up to date. Content and features may be amended to correct errors or reflect changes in services, subject to applicable law.</p>
+              <p>External links are provided for reference. Unless expressly stated otherwise, third parties are responsible for their own content and privacy practices.</p>
+            </section>
+            <section id="normativa">
+              <h2>5. Applicable law and contact</h2>
+              <p>Spanish law applies where relevant, including Law 34/2002, the General Data Protection Regulation (GDPR), and Spanish Organic Law 3/2018 on personal data protection and digital rights.</p>
+              <p>For website enquiries, email <a href={`mailto:${owner.email}`}>{owner.email}</a>. See our <a href={legalPath('en','privacy')}>Privacy policy</a>. Any disputes will be subject to the legally applicable jurisdiction rules, without limiting consumer rights.</p>
+            </section>
+          </>
+        )
+      ) : (
+        es ? (
+          <>
+            <section id="responsable">
+              <h2>1. Responsable del tratamiento</h2>
+              <p>El responsable de los datos personales obtenidos a través de este sitio web es <strong>{owner.legalName}</strong>, quien desarrolla la actividad bajo el nombre comercial <strong>{owner.commercialName}</strong>, con NIF {owner.nif}.</p>
+              <p>Dirección de contacto: {owner.address}. Correo para consultas y ejercicio de derechos: <a href={`mailto:${owner.email}`}>{owner.email}</a>.</p>
+            </section>
+            <section id="datos">
+              <h2>2. Qué datos recogemos</h2>
+              <p>Cuando envías el formulario de contacto podemos tratar el nombre, la entidad u organización, el teléfono, el correo electrónico, el idioma y el contenido de la consulta. También podemos recibir datos de contacto si nos escribes o llamas directamente.</p>
+              <p>Los servicios técnicos de alojamiento pueden tratar datos de conexión necesarios para la seguridad y el funcionamiento del sitio, como la dirección IP, fechas de acceso y registros técnicos.</p>
+              <p><strong>No incluyas datos de salud, informes clínicos ni información identificativa de pacientes</strong> en el formulario general. El intercambio de información sensible requeriría canales y garantías específicos, distintos del formulario público.</p>
+            </section>
+            <section id="finalidades">
+              <h2>3. Finalidades y bases jurídicas</h2>
+              <ul>
+                <li><strong>Responder a tu consulta profesional y valorar posibles colaboraciones:</strong> solicitud realizada por la persona interesada, consentimiento otorgado al enviar el formulario y, cuando corresponda, actuaciones precontractuales (artículos 6.1.a y 6.1.b del RGPD).</li>
+                <li><strong>Gestionar comunicaciones vinculadas a una relación profesional existente:</strong> ejecución del contrato, cuando exista (artículo 6.1.b del RGPD), o interés legítimo en la comunicación B2B pertinente (artículo 6.1.f).</li>
+                <li><strong>Mantener la seguridad de la web y prevenir usos indebidos:</strong> interés legítimo en proteger el servicio (artículo 6.1.f del RGPD).</li>
+                <li><strong>Cumplir obligaciones legales:</strong> cuando resulte exigible (artículo 6.1.c del RGPD).</li>
+              </ul>
+              <p>No utilizamos los mensajes del formulario para enviar publicidad por correo electrónico sin una base jurídica apropiada. No se realizan decisiones exclusivamente automatizadas con efectos jurídicos ni elaboración de perfiles comerciales a partir de este formulario.</p>
+            </section>
+            <section id="destinatarios">
+              <h2>4. Destinatarios y transferencias internacionales</h2>
+              <p>Los datos pueden ser accesibles a proveedores que prestan servicios tecnológicos por cuenta del responsable, como <strong>Vercel</strong> (alojamiento web e infraestructura del formulario) y <strong>Resend</strong> (envío técnico de las comunicaciones del formulario), además del proveedor contratado para el buzón de correo corporativo.</p>
+              <p>El uso de estos proveedores puede implicar tratamiento o transferencias de datos fuera del Espacio Económico Europeo. Resend informa de almacenamiento de datos en Estados Unidos y de garantías para transferencias internacionales, incluidas cláusulas contractuales tipo. Kheralia deberá verificar que sus acuerdos y configuración de proveedores sean adecuados a los servicios contratados.</p>
+              <p>No se comunicarán datos a terceros para fines comerciales propios de estos, salvo obligación legal o autorización válida.</p>
+            </section>
+            <section id="conservacion">
+              <h2>5. Cuánto tiempo conservamos los datos</h2>
+              <p>Las consultas que no lleguen a convertirse en una relación contractual se conservarán, como criterio operativo propuesto, durante un máximo de <strong>{owner.inquiryRetentionMonths} meses desde la última comunicación</strong>, salvo solicitud de supresión anterior o necesidad justificada de conservarlos por una obligación legal o la defensa de reclamaciones.</p>
+              <p>Si se formaliza una colaboración, los datos necesarios se conservarán durante la relación y los plazos legales aplicables. Los proveedores técnicos pueden aplicar sus propios plazos de conservación de registros y mensajes conforme a sus contratos.</p>
+            </section>
+            <section id="derechos">
+              <h2>6. Tus derechos</h2>
+              <p>Puedes solicitar acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad, cuando corresponda. Si el tratamiento se basa en tu consentimiento, puedes retirarlo en cualquier momento sin afectar a la licitud de lo realizado antes de la retirada.</p>
+              <p>Escribe a <a href={`mailto:${owner.email}`}>{owner.email}</a> indicando el derecho que deseas ejercer. Podremos solicitar los datos mínimos necesarios para verificar tu identidad cuando sea preciso.</p>
+              <p>Si consideras que no se han respetado tus derechos, puedes presentar una reclamación ante la <a href="https://www.aepd.es/" target="_blank" rel="noopener noreferrer">Agencia Española de Protección de Datos (AEPD)</a>.</p>
+            </section>
+            <section id="seguridad">
+              <h2>7. Seguridad, comunicaciones y actualizaciones</h2>
+              <p>Se aplicarán medidas técnicas y organizativas apropiadas para proteger los datos personales frente a accesos no autorizados, pérdida o uso indebido. Ningún sistema de transmisión es completamente inmune a los riesgos, por lo que el formulario público no debe utilizarse para enviar información clínica.</p>
+              <p>La política podrá actualizarse si cambian los servicios, los proveedores o las obligaciones legales. La fecha de revisión se indicará al inicio de esta página.</p>
+              <p>Para información sobre el titular de la web consulta el <a href={legalPath('es','notice')}>Aviso legal</a>.</p>
+            </section>
+          </>
+        ) : (
+          <>
+            <section id="responsable">
+              <h2>1. Data controller</h2>
+              <p>The controller of personal data collected through this website is <strong>{owner.legalName}</strong>, operating under the trading name <strong>{owner.commercialName}</strong>, tax number (NIF) {owner.nif}.</p>
+              <p>Contact address: {owner.address}. To enquire or exercise privacy rights, email <a href={`mailto:${owner.email}`}>{owner.email}</a>.</p>
+            </section>
+            <section id="datos">
+              <h2>2. What data we collect</h2>
+              <p>If you complete the contact form we may process your name, organisation, phone number, email address, language preference and enquiry. We also receive contact details when you email or telephone us directly.</p>
+              <p>Website infrastructure providers may process connection information required for functionality and security, such as IP addresses, access dates and technical logs.</p>
+              <p><strong>Do not submit health data, clinical reports or identifiable patient details</strong> through the general contact form. Sensitive information would require a separate, properly secured communication channel and applicable safeguards.</p>
+            </section>
+            <section id="finalidades">
+              <h2>3. Purposes and legal grounds</h2>
+              <ul>
+                <li><strong>Responding to professional enquiries and evaluating potential collaboration:</strong> your request, the consent given when submitting the form and, where relevant, pre-contractual steps (GDPR Articles 6(1)(a) and 6(1)(b)).</li>
+                <li><strong>Managing communications related to an existing professional relationship:</strong> performance of a contract, where applicable (Article 6(1)(b)), or legitimate interests in relevant business communications (Article 6(1)(f)).</li>
+                <li><strong>Maintaining website security and preventing misuse:</strong> legitimate interests in safeguarding the service (Article 6(1)(f)).</li>
+                <li><strong>Meeting legal obligations:</strong> where required (Article 6(1)(c)).</li>
+              </ul>
+              <p>We do not use contact form messages for email advertising without an appropriate lawful basis. This form does not involve solely automated decisions with legal effects or commercial profiling.</p>
+            </section>
+            <section id="destinatarios">
+              <h2>4. Recipients and international transfers</h2>
+              <p>Data may be accessed by technology providers acting for the controller, including <strong>Vercel</strong> (website hosting and form infrastructure) and <strong>Resend</strong> (technical delivery of contact messages), as well as the provider of the business email mailbox.</p>
+              <p>These providers may process or transfer data outside the European Economic Area. Resend states that data is stored in the United States and provides safeguards for international transfers, including Standard Contractual Clauses. Kheralia must confirm that its provider agreements and settings are appropriate for its subscribed services.</p>
+              <p>Data will not be shared with third parties for their independent marketing purposes, except where legally required or validly authorised.</p>
+            </section>
+            <section id="conservacion">
+              <h2>5. Retention periods</h2>
+              <p>Professional enquiries that do not lead to a contract will, under the proposed operational policy, be kept for no longer than <strong>{owner.inquiryRetentionMonths} months from the last communication</strong>, unless you request earlier erasure or retention is justified by a legal obligation or the defence of claims.</p>
+              <p>If a professional relationship is established, necessary information will be retained during that relationship and for applicable statutory periods. Technology providers may apply their own contractual retention schedules to technical logs and messages.</p>
+            </section>
+            <section id="derechos">
+              <h2>6. Your rights</h2>
+              <p>You may request access, rectification, erasure, restriction of processing, objection and data portability where applicable. Where processing is based on consent, you can withdraw that consent at any time without affecting processing carried out lawfully beforehand.</p>
+              <p>Contact <a href={`mailto:${owner.email}`}>{owner.email}</a> to exercise your rights. We may ask for information strictly necessary to confirm identity where appropriate.</p>
+              <p>You can lodge a complaint with the <a href="https://www.aepd.es/" target="_blank" rel="noopener noreferrer">Spanish Data Protection Authority (AEPD)</a> if you believe your rights have been infringed.</p>
+            </section>
+            <section id="seguridad">
+              <h2>7. Security, correspondence and updates</h2>
+              <p>Appropriate technical and organisational measures should protect personal data against unauthorised access, loss and misuse. No transmission system is entirely without risk, so the public form must not be used to transmit clinical information.</p>
+              <p>This policy may change when services, providers or legal requirements change. The revision date appears at the top of this page.</p>
+              <p>For details about the website provider, see the <a href={legalPath('en','notice')}>Legal notice</a>.</p>
+            </section>
+          </>
+        )
+      )}
+      <div class="legal-document__end">
+        <span>{es?'¿Necesitas hacer una consulta?':'Need to get in touch?'}</span>
+        <a href={`mailto:${owner.email}`}>{owner.email} <span aria-hidden="true">↗</span></a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<style>
+  .legal-document {background:var(--cream, #f7f2ea);color:var(--navy,#153752);padding-bottom:clamp(4rem,7vw,7rem)}
+  .legal-document__hero {display:flex;justify-content:space-between;align-items:center;gap:2rem;padding-top:clamp(4rem,7vw,7rem);padding-bottom:clamp(2.5rem,5vw,4.5rem);border-bottom:1px solid rgba(21,55,82,.17)}
+  .legal-document__eyebrow {margin:0 0 1.1rem;font:600 .75rem/1.5 'DM Sans',sans-serif;letter-spacing:.17em;color:#6a8273}
+  h1 {font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.8rem,6vw,5rem);font-weight:400;line-height:1.14;letter-spacing:-.035em;margin:0 0 1.25rem}
+  .legal-document__intro {max-width:54ch;font-size:clamp(1.05rem,1.8vw,1.21rem);line-height:1.7;margin:0 0 .9rem;color:#405465}
+  .legal-document__updated {font-size:.84rem;color:#67737b;margin:0}
+  .legal-document__mark {font-family:'Playfair Display',Georgia,serif;font-size:clamp(5rem,14vw,13rem);font-style:italic;line-height:1;color:#b49b75;opacity:.2;user-select:none}
+  .legal-document__grid {display:grid;grid-template-columns:minmax(11rem,15rem) minmax(0,52rem);gap:clamp(2rem,5vw,6rem);padding-top:clamp(2.5rem,5vw,4.5rem);align-items:start}
+  .legal-document__index {position:sticky;top:8rem;display:flex;flex-direction:column;gap:.65rem;padding-top:.35rem}
+  .legal-document__index p {font-size:.74rem;letter-spacing:.16em;font-weight:700;color:#6c7e75;margin:0 0 .65rem}
+  .legal-document__index a {text-decoration:none;color:#4e6272;font-size:.93rem;line-height:1.4;transition:color .15s}
+  .legal-document__index a:hover,.legal-document__index a:focus-visible {color:var(--navy,#153752);text-decoration:underline;text-underline-offset:.23em}
+  .legal-document__body section {scroll-margin-top:7rem;margin-bottom:clamp(2.8rem,5vw,4rem)}
+  .legal-document__body section+section {padding-top:2.1rem;border-top:1px solid rgba(21,55,82,.12)}
+  .legal-document__body h2 {font-family:'Playfair Display',Georgia,serif;font-weight:400;font-size:clamp(1.45rem,2.4vw,1.85rem);line-height:1.36;letter-spacing:-.018em;margin:0 0 1rem}
+  .legal-document__body p,.legal-document__body li {font-size:.98rem;line-height:1.85;color:#405465;margin:0 0 1rem}
+  .legal-document__body ul {padding-left:1.3rem;margin:0 0 1.2rem}
+  .legal-document__body li {padding-left:.25rem;margin-bottom:.6rem}
+  .legal-document__body a {color:var(--navy,#153752);text-decoration:underline;text-decoration-color:#9db0a4;text-underline-offset:.24em;overflow-wrap:anywhere}
+  .legal-document__body a:hover {text-decoration-color:currentColor}
+  .legal-document__facts {border:1px solid rgba(21,55,82,.14);border-radius:1rem;overflow:hidden;background:#fffdf9;margin:1.4rem 0}
+  .legal-document__facts div {display:grid;grid-template-columns:9.6rem minmax(0,1fr);gap:1.3rem;padding:1rem 1.2rem}
+  .legal-document__facts div+div {border-top:1px solid rgba(21,55,82,.11)}
+  .legal-document__facts dt {font-size:.84rem;font-weight:600;color:#576f69}
+  .legal-document__facts dd {margin:0;color:#233f51;font-size:.93rem;line-height:1.6;overflow-wrap:anywhere}
+  .legal-document__end {margin-top:2rem;padding:1.6rem 0;border-top:1px solid rgba(21,55,82,.2);display:flex;gap:1rem;flex-wrap:wrap;align-items:baseline;justify-content:space-between}
+  .legal-document__end span {color:#53686c;font-size:.94rem}
+  .legal-document__end a {font-weight:600}
+  @media(max-width:760px) {
+    .legal-document__mark {display:none}
+    .legal-document__grid {grid-template-columns:minmax(0,1fr);gap:2rem}
+    .legal-document__index {position:static;display:flex;flex-direction:row;flex-wrap:wrap;gap:.65rem 1rem;border-bottom:1px solid rgba(21,55,82,.14);padding-bottom:1.6rem}
+    .legal-document__index p {width:100%;margin:0}
+    .legal-document__facts div {grid-template-columns:1fr;gap:.25rem}
+  }
+  @media(prefers-reduced-motion:reduce) {.legal-document__index a {transition:none}}
+</style>
