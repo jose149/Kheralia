@@ -98,7 +98,7 @@ export const POST: APIRoute = async ({ request }) => {
   const consent = field(fields, 'consent');
 
   const isValid =
-    organization.length >= 2 && organization.length <= 140 &&
+    (organization.length === 0 || (organization.length >= 2 && organization.length <= 140)) &&
     name.length >= 2 && name.length <= 100 &&
     phone.length >= 6 && phone.length <= 30 &&
     email.length <= 180 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
@@ -135,8 +135,8 @@ export const POST: APIRoute = async ({ request }) => {
         from,
         to: [to],
         reply_to: email,
-        subject: `Kheralia - propuesta de colaboración (${locale})`,
-        text: `Centro/organización: ${organization}\nNombre: ${name}\nTeléfono: ${phone}\nEmail: ${email}\nIdioma: ${locale}\n\nConsulta:\n${message}`,
+        subject: `Kheralia - nueva consulta desde la web (${locale})`,
+        text: `Centro/organización (si aplica): ${organization || "Particular"}\nNombre: ${name}\nTeléfono: ${phone}\nEmail: ${email}\nIdioma: ${locale}\n\nConsulta:\n${message}`,
       }),
       signal: AbortSignal.timeout(10_000),
     });

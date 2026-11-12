@@ -9,7 +9,7 @@ export const homeHeroClassic: Record<Locale, {
 }> = {
   es: {
     title: 'Cuidar mejor empieza\npor comprender',
-    description: 'Para hospitales, clínicas y otras entidades, diseñamos planes de intervención domiciliaria individualizados con apoyo de profesionales especializados en Psicología, objetivos concretos y supervisión técnica.',
+    description: 'Ofrecemos apoyo domiciliario a personas y familias, y colaboramos con centros y entidades. Cada intervención parte de un plan individualizado, con participación de profesionales especializados en Psicología, objetivos claros y seguimiento técnico.',
     imageAlt: 'Profesionales y personas mayores compartiendo un momento de atención cercana en el hogar',
     values: [
       { icon: 'heart', title: 'Valoración', subtitle: 'individualizada' },
@@ -19,7 +19,7 @@ export const homeHeroClassic: Record<Locale, {
   },
   en: {
     title: 'Better care begins\nwith understanding',
-    description: 'For hospitals, clinics and other organisations, we design individual home support plans with input from psychology specialists, clear goals and technical oversight.',
+    description: 'We provide tailored home support for individuals and families, and work alongside healthcare providers and other organisations. Every plan includes psychology specialists, clear goals and professional oversight.',
     imageAlt: 'Professionals and older adults sharing a warm moment of support at home',
     values: [
       { icon: 'heart', title: 'Individual', subtitle: 'assessment' },

@@ -77,7 +77,7 @@ interface Copy {
 const es: Copy = {
   nav: { home: 'Inicio', services: 'Servicios', about: 'Sobre nosotros', contact: 'Contacto' },
   action: {
-    contact: 'Solicitar una propuesta',
+    contact: 'Solicitar información',
     services: 'Nuestros servicios',
     discover: 'Por qué intervenimos así',
     allServices: 'Explorar áreas de intervención',
@@ -99,15 +99,15 @@ const es: Copy = {
       description: 'Conoce al equipo de Kheralia y el papel de la psicología en el diseño de planes individualizados de apoyo en el hogar.',
     },
     contact: {
-      title: 'Colaboración con centros sanitarios | Contacto Kheralia',
-      description: 'Solicita una propuesta para tus pacientes o plantea una colaboración profesional con Kheralia en Mallorca.',
+      title: 'Contacto y atención domiciliaria en Mallorca | Kheralia',
+      description: 'Consulta sobre apoyo domiciliario para ti, tu familia o tu entidad. Kheralia diseña planes individualizados en Mallorca.',
     },
   },
   hero: {
     home: {
       eyebrow: 'PLANES DE INTERVENCIÓN DOMICILIARIA · MALLORCA',
       title: 'Cuidar mejor empieza\npor comprender',
-      description: 'Diseñamos planes de intervención domiciliaria individualizados con apoyo de profesionales especializados en Psicología, objetivos concretos y seguimiento técnico para centros sanitarios y sus pacientes.',
+      description: 'Ofrecemos apoyo domiciliario a personas y familias, y colaboramos con centros y entidades. Cada intervención parte de un plan individualizado, con participación de profesionales especializados en Psicología, objetivos claros y seguimiento técnico.',
     },
     services: {
       eyebrow: 'ÁREAS DE INTERVENCIÓN',
@@ -120,9 +120,9 @@ const es: Copy = {
       description: 'Conoce al equipo que impulsa Kheralia y cómo incorporamos la perspectiva psicológica a la valoración de necesidades y al diseño de apoyos con sentido.',
     },
     contact: {
-      eyebrow: 'CONTACTO PROFESIONAL',
+      eyebrow: 'HABLEMOS',
       title: 'Hablemos de\nuna necesidad concreta',
-      description: 'Si tu centro necesita organizar apoyo en domicilio, cuéntanos el contexto general. Estudiaremos el alcance, la viabilidad y los próximos pasos de una posible colaboración.',
+      description: 'Tanto si buscas apoyo para ti o para un familiar como si representas a una entidad, queremos conocer qué necesitas y cómo podemos ayudarte.',
     },
   },
   values: [
@@ -157,7 +157,7 @@ const es: Copy = {
       {
         title: 'Autonomía funcional y estimulación cognitiva',
         short: 'Objetivos para preservar habilidades y participación.',
-        description: 'A partir de la valoración funcional, cognitiva y emocional, establecemos objetivos de intervención realistas. Con la aportación de profesionales especializados en Psicología cuando corresponde, proponemos actividades y pautas para preservar capacidades y favorecer que la persona siga participando.',
+        description: 'A partir de la valoración funcional, cognitiva y emocional, establecemos objetivos de intervención realistas. Todos nuestros planes incluyen la participación de profesionales especializados en Psicología, que contribuyen a definir actividades, pautas y criterios de seguimiento para preservar capacidades y favorecer la autonomía y la participación en la vida cotidiana.',
         features: [
           'Objetivos funcionales y cognitivos individualizados',
           'Actividades y pautas acordes con sus capacidades',
@@ -181,7 +181,7 @@ const es: Copy = {
     title: 'De la valoración al plan de intervención',
     steps: [
       { title: 'Comprender', description: 'Exploramos capacidades funcionales, cognitivas y emocionales, necesidades, preferencias y entorno.' },
-      { title: 'Diseñar el plan', description: 'Concretamos objetivos, acciones, profesionales adecuados y criterios de revisión, con aportación especializada en Psicología cuando procede.' },
+      { title: 'Diseñar el plan', description: 'Concretamos objetivos, acciones, profesionales adecuados y criterios de revisión. Todos los planes incorporan la participación de profesionales especializados en Psicología.' },
       { title: 'Revisar y adaptar', description: 'Supervisamos la aplicación del plan y ajustamos apoyos ante cambios o avances observados.' },
     ],
   },
@@ -192,7 +192,7 @@ const es: Copy = {
     storyTitle: 'Del conocimiento a la intervención',
     story: 'Nuestro punto de partida es sencillo: cada persona conserva capacidades que merecen ser tenidas en cuenta. La dirección técnica incorpora formación en Psicología y Terapia de Conducta, y el trabajo con profesionales especializados permite considerar también los aspectos cognitivos y emocionales de cada situación. Desde ahí construimos planes de intervención adaptados a la vida diaria, sin confundir apoyo domiciliario con tratamiento sanitario.',
     teamTitle: 'Las personas detrás del método',
-    teamDescription: 'Ángel Vieco lidera la coordinación en el terreno y la supervisión de la calidad asistencial. Luis Liñán dirige el área técnica y cuenta con formación en Psicología y Terapia de Conducta. Su trabajo, junto con profesionales colaboradores especializados cuando corresponde, da continuidad al plan desde la valoración hasta su aplicación.',
+    teamDescription: 'Ángel Vieco lidera la coordinación en el terreno y la supervisión de la calidad asistencial. Luis Liñán dirige el área técnica y cuenta con formación en Psicología y Terapia de Conducta. Junto con los profesionales especializados en Psicología que participan en cada plan, dan continuidad a la intervención desde la valoración hasta su aplicación.',
   },
   reviews: {
     eyebrow: 'ASÍ SE DIFERENCIA KHERALIA',
@@ -208,10 +208,10 @@ const es: Copy = {
       action: 'Plantear una consulta',
     },
     services: {
-      eyebrow: 'PARA CENTROS Y ENTIDADES',
-      title: '¿Qué apoyo necesitan sus pacientes?',
-      description: 'Si necesita continuidad después del alta, apoyo para la autonomía u orientación a cuidadores, estudiaremos el alcance y la viabilidad del servicio.',
-      action: 'Solicitar una propuesta',
+      eyebrow: 'PARA FAMILIAS Y ENTIDADES',
+      title: '¿Qué apoyo necesitas organizar?',
+      description: 'Si buscas apoyo para un familiar o necesitas organizar atención domiciliaria desde un centro, podemos estudiar contigo las necesidades y las opciones disponibles.',
+      action: 'Solicitar información',
     },
     about: {
       eyebrow: 'COLABORACIÓN PROFESIONAL',
@@ -221,19 +221,19 @@ const es: Copy = {
     },
   },
   contact: {
-    eyebrow: 'CONTACTO PROFESIONAL',
-    title: 'Convirtamos una necesidad\nen una propuesta',
-    description: 'Indícanos qué situación necesita resolver tu entidad y qué tipo de continuidad domiciliaria busca. Estudiaremos la viabilidad y el alcance de un plan de intervención, sin enviar datos identificativos de pacientes ni información clínica a través de este formulario.',
+    eyebrow: 'HABLEMOS',
+    title: 'Cuéntanos qué necesitas\ny hablemos de opciones',
+    description: 'Tanto si buscas apoyo para ti o para un familiar como si representas a un centro o entidad, cuéntanos qué necesitas. Estudiaremos las opciones de atención más adecuadas. Por privacidad, no incluyas datos clínicos ni información sensible en el formulario.',
     detailsTitle: 'Hablemos directamente',
     zoneTitle: 'Desde Mallorca, cerca de cada caso',
     zoneDescription: 'Organizamos servicios en Mallorca según el lugar, el alcance y la disponibilidad de profesionales.',
     fields: {
-      organization: 'Centro u organización',
+      organization: 'Centro o entidad (opcional)',
       name: 'Nombre y apellidos',
       phone: 'Teléfono de contacto',
-      email: 'Correo electrónico profesional',
-      message: 'Consulta o propuesta de colaboración',
-      consent: 'He leído la política de privacidad y acepto el tratamiento de mis datos para responder a esta consulta profesional.',
+      email: 'Correo electrónico',
+      message: '¿En qué podemos ayudarte?',
+      consent: 'He leído la política de privacidad y acepto el tratamiento de mis datos para responder a esta consulta.',
       submit: 'Enviar consulta',
       required: 'Campos obligatorios',
       success: 'Hemos recibido tu consulta. Gracias por contactar con Kheralia.',
@@ -260,7 +260,7 @@ const es: Copy = {
 const en: Copy = {
   nav: { home: 'Home', services: 'Services', about: 'About us', contact: 'Contact' },
   action: {
-    contact: 'Request a proposal',
+    contact: 'Get in touch',
     services: 'Our services',
     discover: 'Why we work this way',
     allServices: 'Explore our support areas',
@@ -282,15 +282,15 @@ const en: Copy = {
       description: 'Meet Kheralia’s team and discover how psychological expertise contributes to tailored home support plans.',
     },
     contact: {
-      title: 'Healthcare partnerships | Contact Kheralia',
-      description: 'Request a proposal for your patients or explore professional partnerships with Kheralia in Mallorca.',
+      title: 'Contact Kheralia | Tailored home support in Mallorca',
+      description: 'Explore tailored home support for yourself, your family or your organisation in Mallorca. Contact Kheralia.',
     },
   },
   hero: {
     home: {
       eyebrow: 'INDIVIDUAL HOME SUPPORT PLANS · MALLORCA',
       title: 'Better care begins\nwith understanding',
-      description: 'We design tailored home support plans with input from psychology specialists, practical goals and technical oversight for healthcare organisations and their patients.',
+      description: 'We provide tailored home support for individuals and families, and work alongside healthcare providers and other organisations. Every plan includes psychology specialists, clear goals and professional oversight.',
     },
     services: {
       eyebrow: 'AREAS OF SUPPORT',
@@ -303,9 +303,9 @@ const en: Copy = {
       description: 'Meet the people behind Kheralia and discover how psychological insight informs the assessment of needs and the design of meaningful support.',
     },
     contact: {
-      eyebrow: 'PROFESSIONAL ENQUIRIES',
+      eyebrow: 'LET’S TALK',
       title: 'Let’s discuss\na specific need',
-      description: 'Tell us what kind of support your organisation needs to arrange at home. We can explore the scope, feasibility and next steps of a potential partnership.',
+      description: 'Whether you are looking for support for yourself, a family member or an organisation, tell us what you need and how we may be able to help.',
     },
   },
   values: [
@@ -340,7 +340,7 @@ const en: Copy = {
       {
         title: 'Functional independence and cognitive stimulation',
         short: 'Goals that help preserve abilities and participation.',
-        description: 'Following an assessment of functional, cognitive and emotional needs, we set realistic goals. With input from psychology specialists where appropriate, we suggest activities and guidance to help preserve abilities and encourage participation in everyday life.',
+        description: 'Following an assessment of functional, cognitive and emotional needs, we set realistic goals. Every plan includes psychology specialists who help define activities, guidance and review criteria to preserve abilities and encourage independence and participation in everyday life.',
         features: [
           'Individual functional and cognitive goals',
           'Activities matched to existing abilities',
@@ -364,7 +364,7 @@ const en: Copy = {
     title: 'From assessment to a tailored support plan',
     steps: [
       { title: 'Understand', description: 'We explore functional, cognitive and emotional abilities, needs, preferences and home context.' },
-      { title: 'Design the plan', description: 'We agree goals, activities, suitable professionals and review criteria, with psychology input where appropriate.' },
+      { title: 'Design the plan', description: 'We agree goals, activities, suitable professionals and review criteria. Psychology specialists contribute to every plan.' },
       { title: 'Review and adapt', description: 'We oversee how the plan is delivered and adjust support as needs or circumstances change.' },
     ],
   },
@@ -373,9 +373,9 @@ const en: Copy = {
     title: 'A psychological perspective\non everyday support',
     description: 'Support begins before anyone enters the home: it begins by understanding how a person lives. Kheralia combines professional coordination, psychological knowledge and a structured approach to turn that understanding into practical steps.',
     storyTitle: 'From insight to intervention',
-    story: 'We start from a simple belief: each person has abilities worth recognising. Our technical leadership includes training in Psychology and Behaviour Therapy, and specialist professional input helps us consider cognitive and emotional aspects when relevant. We use this understanding to shape support plans for everyday life, without presenting home support as a substitute for medical treatment.',
+    story: 'We start from a simple belief: each person has abilities worth recognising. Our technical leadership includes training in Psychology and Behaviour Therapy, and psychology specialists contribute to every plan, helping us consider cognitive and emotional aspects of each person’s circumstances. We use this understanding to shape support plans for everyday life, without presenting home support as a substitute for medical treatment.',
     teamTitle: 'The people behind the method',
-    teamDescription: 'Ángel Vieco leads field coordination and oversight of care quality. Luis Liñán is responsible for technical direction and has training in Psychology and Behaviour Therapy. Together with specialist collaborators where appropriate, they help take each plan from assessment into practice.',
+    teamDescription: 'Ángel Vieco leads field coordination and oversight of care quality. Luis Liñán is responsible for technical direction and has training in Psychology and Behaviour Therapy. Alongside psychology specialists involved in every plan, they help take each intervention from assessment into practice.',
   },
   reviews: {
     eyebrow: 'THE KHERALIA DIFFERENCE',
@@ -391,10 +391,10 @@ const en: Copy = {
       action: 'Start an enquiry',
     },
     services: {
-      eyebrow: 'FOR HEALTHCARE ORGANISATIONS',
-      title: 'What support do your patients need?',
-      description: 'From support following discharge to independence and carer guidance, we can discuss the scope and feasibility of the service.',
-      action: 'Request a proposal',
+      eyebrow: 'FOR FAMILIES AND ORGANISATIONS',
+      title: 'What kind of support do you need?',
+      description: 'Whether you are seeking support for a family member or arranging home care through an organisation, we can explore your needs and the options available.',
+      action: 'Get in touch',
     },
     about: {
       eyebrow: 'PROFESSIONAL PARTNERSHIPS',
@@ -404,19 +404,19 @@ const en: Copy = {
     },
   },
   contact: {
-    eyebrow: 'PROFESSIONAL ENQUIRIES',
-    title: 'Turn a need into\na practical proposal',
-    description: 'Tell us what your organisation needs to address and what sort of ongoing support is required at home. We can discuss the feasibility and scope of a tailored plan. Please do not share identifiable patient data or clinical information through this form.',
+    eyebrow: 'LET’S TALK',
+    title: 'Tell us what you need\nand let’s explore the options',
+    description: 'Whether you are seeking support for yourself, a family member or an organisation, tell us what you need. We will explore suitable options together. For privacy, please do not include clinical or other sensitive information in this form.',
     detailsTitle: 'Speak with us directly',
     zoneTitle: 'Local knowledge of Mallorca',
     zoneDescription: 'We organise services in Mallorca based on location, scope and professional availability.',
     fields: {
-      organization: 'Organisation or centre',
+      organization: 'Organisation or centre (optional)',
       name: 'Full name',
       phone: 'Contact number',
-      email: 'Professional email address',
-      message: 'Enquiry or partnership proposal',
-      consent: 'I have read the privacy policy and agree to my personal data being processed to respond to this professional enquiry.',
+      email: 'Email address',
+      message: 'How can we help?',
+      consent: 'I have read the privacy policy and agree to my personal data being processed to respond to this enquiry.',
       submit: 'Send enquiry',
       required: 'Required fields',
       success: 'Your enquiry has been received. Thank you for contacting Kheralia.',

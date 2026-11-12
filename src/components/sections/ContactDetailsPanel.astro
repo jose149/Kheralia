@@ -22,7 +22,7 @@ const methods = [
   {
     icon: "mail" as const,
     label: "Email",
-    value: "info@kheralia.es",
+    value: "atencion@kheralia.es.es",
     description: es
       ? "Respondemos por correo lo antes posible."
       : "We respond to emails as soon as possible.",
@@ -68,7 +68,7 @@ const methods = [
           <div class="k-contact-method__content">
             <span class="k-contact-method__label">{method.label}</span>
             {method.icon === 'mail' ? (
-            <a class="k-contact-method__value" href="mailto:info@kheralia.es">{method.value}</a>
+            <a class="k-contact-method__value" href="mailto:atencion@kheralia.es.es">{method.value}</a>
           ) : (
             <strong class="k-contact-method__value">{method.value}</strong>
           )}

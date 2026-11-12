@@ -16,7 +16,7 @@ const copy=t(locale);
       {(Object.keys(copy.nav) as PageKey[]).map((key)=><a href={pathFor(locale,key)}>{copy.nav[key]}</a>)}
     </nav>
     <div class="site-footer__contact"><strong>{copy.nav.contact}</strong><p>Illes Balears · Mallorca</p><a href={pathFor(locale,'contact')}>{copy.action.contact} →</a>
-      <p class="site-footer__email"><a href="mailto:info@kheralia.es">info@kheralia.es</a></p>
+      <p class="site-footer__email"><a href="mailto:atencion@kheralia.es">atencion@kheralia.es</a></p>
     </div>
   </div>
   <div class="container site-footer__bottom"><small>© {new Date().getFullYear()} {copy.footer.copyright}</small><div class="site-footer__legal"><a href={`/${locale}/${locale==='es'?'aviso-legal':'legal-notice'}/`}>{copy.footer.legal}</a><a href={`/${locale}/${locale==='es'?'privacidad':'privacy'}/`}>{copy.footer.privacy}</a></div><small>{copy.footer.demo}</small></div>

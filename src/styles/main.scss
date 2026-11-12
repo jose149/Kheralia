@@ -90,7 +90,7 @@ h3 {
   font-size: clamp(1.4rem, 2vw, 2rem);
 }
 p {
-  max-width: 62ch;
+  max-width: 50rem;
 }
 .section {
   padding-block: clamp(3rem, 7vw, 4rem);
@@ -414,18 +414,17 @@ p {
 }
 .philosophy__grid {
   display: grid;
-  grid-template-columns: 48% 52%;
+  grid-template-columns: 100%;
   align-items: center;
   gap: 1rem;
 }
 .philosophy__copy {
   position: relative;
-  padding: 0 5% 0 8%;
   z-index: 1;
 }
 .philosophy__copy p {
-  max-width: 440px;
   margin: 1.6rem 0;
+  max-width: 40rem;
   color: var(--ink);
 }
 .philosophy__image {
@@ -632,7 +631,7 @@ p {
 }
 .service-feature__grid {
   display: grid;
-  grid-template-columns: 48% 52%;
+  grid-template-columns: 75%;
   align-items: center;
   gap: 3rem;
 }
@@ -659,9 +658,10 @@ p {
 }
 .service-feature__copy > p {
   margin-top: 1.3rem;
-  max-width: 520px;
+  max-width: 40rem;
 }
 .service-feature__benefits {
+  max-width: 40rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
@@ -732,7 +732,7 @@ p {
 }
 .story__grid {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 75%;
   gap: 4rem;
   align-items: center;
 }
